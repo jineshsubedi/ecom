@@ -118,7 +118,7 @@
                                     <li><a href="{{url('wishlist/save_to_wishlist/'.$product->id)}}" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
                                 </ul>
                                 @auth
-                                <a class="cart" href="{{url('/shop/'.$product->item_slug)}}">Add to Cart</a>
+                                <a class="cart" href="{{url('/shop/'.$product->slug)}}">Add to Cart</a>
                                 @endauth
                                 @guest
                                 <a class="cart" href="{{route('login')}}">Add to Cart</a>
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         <div class="why-text">
-                            <h4>{{$product->item_name}}</h4>
+                            <h4>{{$product->title}}</h4>
                             <h5>Rs. {{$product->price}}</h5>
                         </div>
                     </div>

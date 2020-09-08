@@ -34,33 +34,39 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="header-title">Edit Product</h4>
-                        <p class="text-muted font-14 mb-4">Add detail to Product</p>
+                        <p class="text-muted font-14 mb-4">Edit detail to Product</p>
                         <form method="post" action="{{route('product.update', $product->id)}}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        <div class="form-group">
-                            <label class="col-form-label required">Item</label>
-                            <select name="item_id" class="form-control">
-                                <option value="">Select Item</option>
-                                @foreach($items as $item)
-                                @if($item->id == $product->item_id)
-                                <option value="{{$item->id}}" selected>{{$item->title}}</option>
-                                @else
-                                <option value="{{$item->id}}">{{$item->title}}</option>
-                                @endif
-                                @endforeach
-                            </select>
-                            <div class="text-danger">
-                                @if ($errors->has('item_id'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('item_id') }}</strong>
-                                    </span>
-                                @endif
+                        
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="example-text-input" class="col-form-label">Title</label>
+                                <input class="form-control" name="title" type="text" value="{{$product->title}}" id="example-title-input">
+                                <div class="text-danger">
+                                    @if ($errors->has('title'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
+                            <div class="col-md-6">
+                                <label for="example-text-input" class="col-form-label">Slug</label>
+                                <input class="form-control" name="slug" type="slug" value="{{$product->slug}}" id="example-slug-input">
+                                <div class="text-danger">
+                                    @if ($errors->has('slug'))
+                                        <span class="text-danger" role="alert">
+                                            <strong>{{ $errors->first('slug') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Category</label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" class="form-control" id="category_id">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                 @if($category->id == $product->category_id)
@@ -71,16 +77,36 @@
                                 @endforeach
                             </select>
                             <div class="text-danger">
-                                @if ($errors->has('item_id'))
+                                @if ($errors->has('category_id'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('item_id') }}</strong>
+                                        <strong>{{ $errors->first('category_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label required">Sub Category</label>
+                            <select name="sub_category_id" class="form-control" id="sub_category_id">
+                                <option value="0">Select Sub Category</option>
+                                @foreach($sub_categories as $category)
+                                @if($category->id == $product->sub_category_id)
+                                <option value="{{$category->id}}" selected>{{$category->title}}</option>
+                                @else
+                                <option value="{{$category->id}}">{{$category->title}}</option>
+                                @endif
+                                @endforeach
+                            </select>
+                            <div class="text-danger">
+                                @if ($errors->has('sub_category_id'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('sub_category_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Price</label>
-                            <input type="text" name="price" class="form-control" placeholder="Product price" value={{$product->price}}>
+                            <input type="text" name="price" class="form-control" placeholder="Product price" value="{{$product->price}}">
                             <div class="text-danger">
                                 @if ($errors->has('price'))
                                     <span class="text-danger" role="alert">
@@ -91,7 +117,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Description</label>
-                            <textarea class="form-control" rows="5" name="description" placeholder="product description">{!! $product->description !!}</textarea>
+                            <textarea class="form-control" id="description" rows="10" name="description" placeholder="product description">{!! $product->description !!}</textarea>
                             <div class="text-danger">
                                 @if ($errors->has('description'))
                                     <span class="text-danger" role="alert">
@@ -160,8 +186,10 @@
 
 @endsection
 @section('script')
+<script src="{{asset('theme/js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('backend/assets/tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     ClassicEditor
         .create( document.querySelector( '#description' ) )
@@ -169,7 +197,7 @@
                 console.log( editor );
         } )
         .catch( error => {
-                console.log( error );
+                console.error( error );
         } );
 
     function shuffleSlug(id)
@@ -197,21 +225,85 @@
     {
         $('#oldForm'+id).remove();
     }
+    $("#example-title-input").blur(function(){
+        var data_title = $("#example-title-input").val();
+        var data_url = data_title.replace(/ /g,"-");
+        $('#example-slug-input').val(data_url);
+    })
+    function addItem()
+    {
+        $('#item_id').val(0);
+        $('#addnewitem').toggle();
+    }
+</script>
+<script>
+    var token = $('input[name=\'_token\']').val();
+    $('#category_id').change(function(){
+        var category = $(this).val();
+        ajaxSubCategoryCall(category)
+    });
+    var category = $('#category_id').val();
+    if(category != ''){
+        ajaxSubCategoryCall(category)
+    }
+    function ajaxSubCategoryCall(category)
+    {
+        $.ajax({
+            url: "{{route('getSubCategoryByCategoryId')}}",
+            type: 'post',
+            data:{
+                _token : token,
+                category_id : category
+            },
+            dataType: 'JSON',
+            success:function(data){
+                var old_category_id = '{{$product->sub_category_id}}';
+                var optionHtml = '<option value="0">Select Sub Category</option>'
+                $.each(data, function(index, value){
+                    if(old_category_id == value.id){
+                        optionHtml += '<option value="'+value.id+'" selected>'+value.title+'</option>'
+                    }else{
+                        optionHtml += '<option value="'+value.id+'">'+value.title+'</option>'
+                    }
+                })
+                $('#sub_category_id').html(optionHtml)
+            },
+            error: function(error){
+                swal({
+                  title: "Failed!",
+                  text: "Sub category failed to load",
+                  icon: "error",
+                  button: "OK",
+                });
+            }
+        });
+    }
 </script>
 <script>
     var token = $('input[name=\'_token\']').val();
     function removeProductAttachment(id)
     {
-        $('#attachment_file'+id).remove();
+        
         $.ajax({
-            type: 'GET',
-            url: '{{url("/product_attachment/remove")}}',
+            type: 'POST',
+            url: '{{url("backend/product_attachment/remove")}}',
             data: '_token='+token+'&id='+id,
             success: function(data){
-                console.log(data)
+                $('#attachment_file'+id).remove();
+                swal({
+                  title: "Success!",
+                  text: "Attachment Deleted Successfully",
+                  icon: "success",
+                  button: "OK",
+                });
             },
             error: function(error){
-                console.log(error);
+                swal({
+                  title: "Failed!",
+                  text: "Failed to remove attachment",
+                  icon: "error",
+                  button: "OK",
+                });
             }
         });
     }

@@ -33,6 +33,8 @@ Route::group(['middleware' => ['web']], function(){
 	
 
 	Route::get('get_cart_product', 'Theme\ThemeController@getMyCart')->name('getMyCart');
+
+	Route::post('getSubCategoryByCategoryId', 'Theme\ThemeController@getSubCategoryByCategoryId')->name('getSubCategoryByCategoryId');
 });
 
 Auth::routes();
@@ -45,33 +47,33 @@ Route::group(['middleware' =>['auth']], function(){
 
 	Route::group(['prefix' => 'backend'], function(){
 
-	Route::get('/setting', 'HomeController@setting')->name('setting')->middleware('admin');
-	Route::post('/setting/update', 'HomeController@updateSetting')->name('updateSetting')->middleware('admin');
+		Route::get('/setting', 'HomeController@setting')->name('setting')->middleware('admin');
+		Route::post('/setting/update', 'HomeController@updateSetting')->name('updateSetting')->middleware('admin');
 
 
-	Route::resource('/blog', 'Admin\BlogController')->middleware('admin');
+		Route::resource('/blog', 'Admin\BlogController')->middleware('admin');
 
-	Route::resource('/user', 'Admin\UserController')->middleware('admin');
+		Route::resource('/user', 'Admin\UserController')->middleware('admin');
 
-	Route::resource('/product', 'Admin\ProductController')->middleware('admin');
-	Route::get('/product_attachment/remove', 'Admin\ProductController@removeAttachment');
+		Route::resource('/product', 'Admin\ProductController')->middleware('admin');
+		Route::post('/product_attachment/remove', 'Admin\ProductController@removeAttachment');
 
-	Route::resource('/customer', 'Admin\CustomerController')->middleware('admin');
+		Route::resource('/customer', 'Admin\CustomerController')->middleware('admin');
 
-	Route::resource('/item', 'Admin\ItemController')->middleware('admin');
+		Route::resource('/item', 'Admin\ItemController')->middleware('admin');
 
-	Route::resource('/category', 'Admin\CategoryController')->middleware('admin');
-	Route::resource('/sub_category', 'Admin\SubCategoryController')->middleware('admin');
+		Route::resource('/category', 'Admin\CategoryController')->middleware('admin');
+		Route::resource('/sub_category', 'Admin\SubCategoryController')->middleware('admin');
 
-	Route::resource('/order', 'Admin\OrderController')->middleware('admin');
-	Route::get('order/customer/autocomplete', 'Admin\OrderController@customerAutocomplete')->middleware('admin');
-	
-	Route::get('/profile/{id}','HomeController@profile')->name('profile');
-	Route::PUT('/profile/{id}/update','HomeController@profileUpdate')->name('profile.update');
+		Route::resource('/order', 'Admin\OrderController')->middleware('admin');
+		Route::get('order/customer/autocomplete', 'Admin\OrderController@customerAutocomplete')->middleware('admin');
+		
+		Route::get('/profile/{id}','HomeController@profile')->name('profile');
+		Route::PUT('/profile/{id}/update','HomeController@profileUpdate')->name('profile.update');
 
-	Route::get('/message','HomeController@message')->name('message.index')->middleware('admin');
+		Route::get('/message','HomeController@message')->name('message.index')->middleware('admin');
 
-	Route::post('/getItemByProduct', 'Admin\ItemController@getItemByProduct')->name('admin.getItemByProduct');
+		Route::post('/getItemByProduct', 'Admin\ItemController@getItemByProduct')->name('admin.getItemByProduct');
 
 	});
 

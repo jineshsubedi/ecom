@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\Item;
-use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -19,9 +18,7 @@ class ThemeController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::leftjoin('items','items.id','products.item_id')
-            ->select('products.*','items.title as item_name', 'items.slug as item_slug')
-            ->orderBy('products.id', 'desc')
+        $products = Product::orderBy('products.id', 'desc')
             ->with('product_attachment')
             ->paginate(10);
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
@@ -166,5 +163,11 @@ class ThemeController extends Controller
 
         alert()->success('Success', 'Order Created!');
         return redirect()->route('myorder');
+    }
+    public function getSubCategoryByCategoryId(Request $request)
+    {
+        $category = \App\Models\Category::findOrFail($request->category_id);
+        $sub_category = \App\Models\SubCategory::where('category_id', $category->id)->orderBy('title', 'asc')->get();
+        return $sub_category;
     }
 }

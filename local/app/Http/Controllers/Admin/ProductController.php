@@ -6,6 +6,7 @@ use File;
 use App\Models\Item;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProductAttachment;
@@ -44,26 +45,20 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'item_id' => 'required',
+            'title' => 'required',
+            'slug' => 'required|unique:products,slug',
             'category_id' => 'required',
+            'sub_category_id' => 'sometimes',
             'description' => 'required',
             'price' => 'required',
             'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
-        $item_id = $request->item_id;
-        if($request->item_id == 0)
-        {
-            $data =[
-                'title' => $request->title,
-                'slug' => $request->slug,
-            ];
-            $item = \App\Models\Item::create($data);
-            $item_id = $item->id;
-        }
         $data = [
-            'item_id' => $item_id,
+            'title' => $request->title,
+            'slug' => $request->slug,
             'category_id' => $request->category_id,
-            'description' => nl2br($request->description),
+            'sub_category_id' => $request->sub_category_id,
+            'description' => $request->description,
             'price' => $request->price,
         ];
         $product = Product::create($data);
@@ -98,7 +93,8 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        return view('admin.product.view', compact('product'));
+        $attachments = ProductAttachment::where('product_id', $product->id)->get();
+        return view('admin.product.view', compact('product', 'attachments'));
     }
 
     /**
@@ -111,9 +107,9 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $categories = Category::orderBy('title','asc')->get();
-        $items = Item::orderBy('title', 'asc')->get();
+        $sub_categories = SubCategory::where('category_id', $product->category_id)->orderBy('title','asc')->get();
         $attachments = ProductAttachment::where('product_id', $product->id)->get();
-        return view('admin.product.edit', compact('product', 'items', 'categories','attachments'));
+        return view('admin.product.edit', compact('product', 'categories', 'sub_categories', 'attachments'));
     }
 
     /**
@@ -126,17 +122,21 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'item_id' => 'required',
+            'title' => 'required',
+            'slug' => 'required|unique:products,slug,'.$id,
             'category_id' => 'required',
+            'sub_category_id' => 'sometimes',
             'description' => 'required',
             'price' => 'required',
-            'image.*' => 'sometimes|mimes:jpg,png,jpeg,gif|max:2048',
+            'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
         $data = [
-            'item_id' => $request->item_id,
+            'title' => $request->title,
+            'slug' => $request->slug,
             'category_id' => $request->category_id,
-            'description' => nl2br($request->description),
+            'sub_category_id' => $request->sub_category_id,
+            'description' => $request->description,
             'price' => $request->price,
         ];
         $product = Product::findOrFail($id)->update($data);
@@ -160,7 +160,7 @@ class ProductController extends Controller
             }
         }
 
-        alert()->success('Success', 'Product Created!');
+        alert()->success('Success', 'Product Updated!');
         return redirect()->route('product.index');
     }
 

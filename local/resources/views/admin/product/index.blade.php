@@ -45,7 +45,7 @@
                                         <td>{{\App\Models\Category::getTitle($product->category_id)}}</td>                                    
                                         <td>{{\App\Models\SubCategory::getTitle($product->sub_category_id)}}</td>                                    
                                         <td>{{$product->price}}</td>                                   
-                                        <td>{{str_limit($product->description, 100)}}</td>  
+                                        <td>{!! str_limit($product->description, 100) !!}</td>  
                                         <td>{{$product->visits}}</td>                                 
 										<td>
 											<form method="post" action="{{route('product.destroy', $product->id)}}">

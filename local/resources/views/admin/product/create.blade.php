@@ -2,7 +2,7 @@
 @section('breadcrums')
 <div class="breadcrumbs-area clearfix">
     <ul class="breadcrumbs pull-left">
-        <li><a href="{{route('product.index')}}">Item</a></li>
+        <li><a href="{{route('product.index')}}">Product</a></li>
         <li><span>Create</span></li>
     </ul>
 </div>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Category</label>
-                            <select name="category_id" class="form-control">
+                            <select name="category_id" class="form-control" id="category_id">
                                 <option value="">Select Category</option>
                                 @foreach($categories as $category)
                                 @if($category->id == old('category_id'))
@@ -76,36 +76,29 @@
                                 @endforeach
                             </select>
                             <div class="text-danger">
-                                @if ($errors->has('item_id'))
+                                @if ($errors->has('category_id'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('item_id') }}</strong>
+                                        <strong>{{ $errors->first('category_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Sub Category</label>
-                            <select name="category_id" class="form-control">
-                                <option value="">Select Sub Category</option>
-                                @foreach($categories as $category)
-                                @if($category->id == old('category_id'))
-                                <option value="{{$category->id}}" selected>{{$category->title}}</option>
-                                @else
-                                <option value="{{$category->id}}">{{$category->title}}</option>
-                                @endif
-                                @endforeach
+                            <select name="sub_category_id" class="form-control" id="sub_category_id">
+                                <option value="0">Select Category</option>
                             </select>
                             <div class="text-danger">
-                                @if ($errors->has('item_id'))
+                                @if ($errors->has('sub_category_id'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('item_id') }}</strong>
+                                        <strong>{{ $errors->first('sub_category_id') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Price</label>
-                            <input type="text" name="price" class="form-control" placeholder="Product price">
+                            <input type="text" name="price" class="form-control" placeholder="Product price" value="{{old('price')}}">
                             <div class="text-danger">
                                 @if ($errors->has('price'))
                                     <span class="text-danger" role="alert">
@@ -116,7 +109,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-form-label required">Description</label>
-                            <textarea class="form-control" id="description" rows="10" name="description" placeholder="product description"></textarea>
+                            <textarea class="form-control" id="description" rows="10" name="description" placeholder="product description">{{old('description')}}</textarea>
                             <div class="text-danger">
                                 @if ($errors->has('description'))
                                     <span class="text-danger" role="alert">
@@ -177,8 +170,10 @@
 
 @endsection
 @section('script')
+<script src="{{asset('theme/js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('backend/assets/tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/ckeditor5/21.0.0/classic/ckeditor.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     ClassicEditor
         .create( document.querySelector( '#description' ) )
@@ -226,6 +221,46 @@
     }
 </script>
 <script>
-    
+    var token = $('input[name=\'_token\']').val();
+    $('#category_id').change(function(){
+        var category = $(this).val();
+        ajaxSubCategoryCall(category)
+    });
+    var category = $('#category_id').val();
+    if(category != ''){
+        ajaxSubCategoryCall(category)
+    }
+    function ajaxSubCategoryCall(category)
+    {
+        $.ajax({
+            url: "{{route('getSubCategoryByCategoryId')}}",
+            type: 'post',
+            data:{
+                _token : token,
+                category_id : category
+            },
+            dataType: 'JSON',
+            success:function(data){
+                var old_category_id = '{{old("sub_category_id")}}';
+                var optionHtml = '<option value="0">Select Sub Category</option>'
+                $.each(data, function(index, value){
+                    if(old_category_id == value.id){
+                        optionHtml += '<option value="'+value.id+'" selected>'+value.title+'</option>'
+                    }else{
+                        optionHtml += '<option value="'+value.id+'">'+value.title+'</option>'
+                    }
+                })
+                $('#sub_category_id').html(optionHtml)
+            },
+            error: function(error){
+                swal({
+                  title: "Failed!",
+                  text: "Sub category failed to load",
+                  icon: "error",
+                  button: "OK",
+                });
+            }
+        });
+    }
 </script>
 @endsection
