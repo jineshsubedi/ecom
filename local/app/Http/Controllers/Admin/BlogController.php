@@ -45,7 +45,7 @@ class BlogController extends Controller
             'title' => 'required',
             'slug' => 'required',
             'description' => 'required',
-            'image' => 'sometimes|mimes:jpg,png,jpeg,gif|max:2048',
+            'image' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
         
         $image = '';
