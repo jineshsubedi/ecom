@@ -14,6 +14,8 @@
     <link href="{{asset('theme/css/main.css')}}" rel="stylesheet">
     <link href="{{asset('theme/css/responsive.css')}}" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('images/'.\App\Models\Setting::getFavicon())}}">
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     
 </head>
 
@@ -26,7 +28,7 @@
     </style>
 
     @include('layouts.theme.header')
-    
+    @include('sweet::alert')
     @yield('content')
     
     @include('layouts.theme.footer')

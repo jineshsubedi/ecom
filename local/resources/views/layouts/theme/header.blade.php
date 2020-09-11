@@ -25,18 +25,6 @@
 			</div>
 		</div><!--/header_top-->
 		
-		<div class="header-middle"><!--header-middle-->
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 clearfix">
-						<div class="logo pull-left">
-							<a href="{{url('/')}}"><img src="{{asset('images/'.\App\Models\Setting::getLogo())}}" alt="" /></a>
-						</div>
-					</div>
-					<div class="col-md-8 clearfix">
-						@include('layouts.theme.sidebar')
-					</div>
-				</div>
-			</div>
-		</div><!--/header-middle-->
+		@include('layouts.theme.sidebar')
+		
 	</header><!--/header-->

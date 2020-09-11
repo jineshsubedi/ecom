@@ -51,6 +51,10 @@
                         <div class="form-group">
                             <label for="example-search-input" class="col-form-label">Map</label>
                             <input class="form-control" name="map" type="text" value="{{$setting->map}}" id="example-search-input">
+                            <p style="font-size: 10px;">
+                                please use this link to get html code and paste: <a href="https://www.embedgooglemap.net/en/?gclid=EAIaIQobChMIpKW0grDg6wIVmR-tBh3YbgQYEAAYASAAEgI_VvD_BwE" target="_blank">https://www.embedgooglemap.net/en/?gclid=EAIaIQobChMIpKW0grDg6wIVmR-tBh3YbgQYEAAYASAAEgI_VvD_BwE</a><br>
+                                make width: 1080px and height 320px;
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="example-search-input" class="col-form-label">Business Time</label>
