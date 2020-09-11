@@ -50,12 +50,14 @@ class ProductController extends Controller
             'category_id' => 'required',
             'sub_category_id' => 'sometimes',
             'description' => 'required',
+            'featured' => 'required',
             'price' => 'required',
             'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
         $data = [
             'title' => $request->title,
             'slug' => $request->slug,
+            'featured' => $request->featured,
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
             'description' => $request->description,
@@ -127,6 +129,7 @@ class ProductController extends Controller
             'category_id' => 'required',
             'sub_category_id' => 'sometimes',
             'description' => 'required',
+            'featured' => 'required',
             'price' => 'required',
             'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
@@ -137,6 +140,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
             'description' => $request->description,
+            'featured' => $request->featured,
             'price' => $request->price,
         ];
         $product = Product::findOrFail($id)->update($data);

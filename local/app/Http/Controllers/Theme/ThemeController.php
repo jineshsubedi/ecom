@@ -18,13 +18,15 @@ class ThemeController extends Controller
 {
     public function index(Request $request)
     {
-        $products = Product::orderBy('products.id', 'desc')
-            ->with('product_attachment')
-            ->paginate(10);
-        $blogs = Blog::orderBy('id', 'desc')->paginate(10);
+        $featured_products = Product::where('featured', 1)->with('product_attachment')->limit(6)->get();
+        $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
+        $recomended_products =array_chunk($recomended_products, 3);
 
-        $featured_cats = Category::where('featured', 1)->limit(3)->get();
-    	return view('theme.index', compact('products', 'blogs', 'featured_cats'));
+        $featured_categories = Category::where('featured', 1)->orderBy('title', 'asc')->get();
+        $blogs = Blog::orderBy('id', 'desc')->paginate(10);
+        $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
+
+    	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories'));
     }
 
     public function about_us()

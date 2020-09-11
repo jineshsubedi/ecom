@@ -1,78 +1,160 @@
-<!-- End Instagram Feed  -->
-    <!-- Start Footer  -->
-    <footer>
-        <div class="footer-main">
+<footer id="footer"><!--Footer-->
+        <div class="footer-top">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-top-box">
-                            <h3>Business Time</h3>
-                            <!-- <ul class="list-time">
-                                <li>Sunday - Friday: 08.00am to 07.00pm</li>
-                                <li>Saturday: 10.00am to 05.00pm</li>
-                            </ul> -->
-                            <p class="text-white">{!! \App\Models\Setting::getBusinessTime() !!}</p>
+                    <div class="col-sm-2">
+                        <div class="companyinfo">
+                            <h2>{{\App\Models\Setting::getName()}}</h2>
+                            <p>{{\App\Models\Setting::getSubName()}}</p>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-top-box">
-                            <h3>Social Media</h3>
-                            <p>Follow Us On Social Media's</p>
-                            <ul>
-                                <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li>
-                                <li><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a></li>
-                            </ul>
+                    <div class="col-sm-7">
+                        <div class="col-sm-3">
+                            <div class="video-gallery text-center">
+                                <a href="#">
+                                    <div class="iframe-img">
+                                        <img src="images/home/iframe1.png" alt="" />
+                                    </div>
+                                    <div class="overlay-icon">
+                                        <i class="fa fa-play-circle-o"></i>
+                                    </div>
+                                </a>
+                                <p>Circle of Hands</p>
+                                <h2>24 DEC 2014</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <div class="video-gallery text-center">
+                                <a href="#">
+                                    <div class="iframe-img">
+                                        <img src="images/home/iframe2.png" alt="" />
+                                    </div>
+                                    <div class="overlay-icon">
+                                        <i class="fa fa-play-circle-o"></i>
+                                    </div>
+                                </a>
+                                <p>Circle of Hands</p>
+                                <h2>24 DEC 2014</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <div class="video-gallery text-center">
+                                <a href="#">
+                                    <div class="iframe-img">
+                                        <img src="images/home/iframe3.png" alt="" />
+                                    </div>
+                                    <div class="overlay-icon">
+                                        <i class="fa fa-play-circle-o"></i>
+                                    </div>
+                                </a>
+                                <p>Circle of Hands</p>
+                                <h2>24 DEC 2014</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <div class="video-gallery text-center">
+                                <a href="#">
+                                    <div class="iframe-img">
+                                        <img src="images/home/iframe4.png" alt="" />
+                                    </div>
+                                    <div class="overlay-icon">
+                                        <i class="fa fa-play-circle-o"></i>
+                                    </div>
+                                </a>
+                                <p>Circle of Hands</p>
+                                <h2>24 DEC 2014</h2>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link-contact">
-                            <h4>Contact Us</h4>
-                            <ul>
-                                <li>
-                                    <p><i class="fas fa-map-marker-alt"></i> {{\App\Models\Setting::getAddress()}}</p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:{{\App\Models\Setting::getMainPhone()}}"> {{\App\Models\Setting::getPhone()}}</a></p>
-                                </li>
-                                <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:{{\App\Models\Setting::getEmail()}}">{{\App\Models\Setting::getEmail()}}</a></p>
-                                </li>
-                            </ul>
+                    <div class="col-sm-3">
+                        <div class="address">
+                            <img src="images/home/map.png" alt="" />
+                            <p>505 S Atlantic Ave Virginia Beach, VA(Virginia)</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </footer>
-    <!-- End Footer  -->
-    <!-- Start copyright  -->
-    <div class="footer-copyright">
-        <p class="footer-company">All Rights Reserved. &copy; {{Date('Y')}}</p>
-    </div>
-    <!-- End copyright  -->
-    <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-    <!-- ALL JS FILES -->
-    <script src="{{asset('theme/js/jquery-3.2.1.min.js')}}"></script>
-    <script src="{{asset('theme/js/popper.min.js')}}"></script>
-    <script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
-    <!-- ALL PLUGINS -->
-    <script src="{{asset('theme/js/jquery.nicescroll.min.js')}}"></script>
-    <script src="{{asset('theme/js/jquery.superslides.min.js')}}"></script>
-    <script src="{{asset('theme/js/bootstrap-select.js')}}"></script>
-    <script src="{{asset('theme/js/inewsticker.js')}}"></script>
-    <script src="{{asset('theme/js/bootsnav.js')}}"></script>
-    <script src="{{asset('theme/js/images-loded.min.js')}}"></script>
-    <script src="{{asset('theme/js/isotope.min.js')}}"></script>
-    <script src="{{asset('theme/js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('theme/js/baguetteBox.min.js')}}"></script>
-    <script src="{{asset('theme/js/form-validator.min.js')}}"></script>
-    <script src="{{asset('theme/js/contact-form-script.js')}}"></script>
-    <script src="{{asset('theme/js/custom.js')}}"></script>
-</body>
+        
+        <div class="footer-widget">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <h2>Business Time:</h2>
+                            {!! \App\Models\Setting::getBusinessTime() !!}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <h2>Quock Shop</h2>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">T-Shirt</a></li>
+                                <li><a href="#">Mens</a></li>
+                                <li><a href="#">Womens</a></li>
+                                <li><a href="#">Gift Cards</a></li>
+                                <li><a href="#">Shoes</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <h2>Policies</h2>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Privecy Policy</a></li>
+                                <li><a href="#">Refund Policy</a></li>
+                                <li><a href="#">Billing System</a></li>
+                                <li><a href="#">Ticket System</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="single-widget">
+                            <h2>About Shopper</h2>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="#">Company Information</a></li>
+                                <li><a href="#">Careers</a></li>
+                                <li><a href="#">Store Location</a></li>
+                                <li><a href="#">Affillate Program</a></li>
+                                <li><a href="#">Copyright</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-1">
+                        <div class="single-widget">
+                            <h2>About Shopper</h2>
+                            <form action="#" class="searchform">
+                                <input type="text" placeholder="Your email address" />
+                                <button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
+                                <p>Get the most recent updates from <br />our site and be updated your self...</p>
+                            </form>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <p class="pull-left">Copyright © {{Date('Y')}} {{\App\Models\Setting::getName()}}. All rights reserved.</p>
+                    <!-- <p class="pull-right">Designed by <span><a target="_blank" href="http://www.themeum.com">Themeum</a></span></p> -->
+                </div>
+            </div>
+        </div>
+    </footer><!--/Footer-->
 
+  
+    <script src="{{asset('theme/js/jquery.js')}}"></script>
+    <script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
+    <script src="{{asset('theme/js/jquery.scrollUp.min.js')}}"></script>
+    <script src="{{asset('theme/js/price-range.js')}}"></script>
+    <script src="{{asset('theme/js/jquery.prettyPhoto.js')}}"></script>
+    <script src="{{asset('theme/js/main.js')}}"></script>
+</body>
 </html>

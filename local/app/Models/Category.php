@@ -19,4 +19,14 @@ class Category extends Model
     	}
     	return '';
     }
+
+    public function product()
+    {
+        return $this->hasMany('\App\Models\Product', 'category_id')->take(12);
+    }
+
+    public function sub_category()
+    {
+        return $this->hasMany('\App\Models\SubCategory', 'category_id');
+    }
 }

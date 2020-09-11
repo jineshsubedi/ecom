@@ -97,6 +97,20 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-form-label required">Featured</label>
+                            <select name="featured" class="form-control" id="featured">
+                                <option value="0">Not Featured</option>
+                                <option value="1">Featured</option>
+                            </select>
+                            <div class="text-danger">
+                                @if ($errors->has('featured'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('featured') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-form-label required">Price</label>
                             <input type="text" name="price" class="form-control" placeholder="Product price" value="{{old('price')}}">
                             <div class="text-danger">

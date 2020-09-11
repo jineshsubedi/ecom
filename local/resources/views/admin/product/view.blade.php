@@ -17,6 +17,28 @@
     <div class="sales-report-area mb-5">
         <div class="row">
         	<div class="col-sm-5">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                  <ol class="carousel-indicators">
+                    @foreach($attachments as $k=>$attachment)
+                    <li data-target="#carouselExampleIndicators" data-slide-to="{{$k}}" @if($k==0) class="active" @endif></li>
+                    @endforeach
+                  </ol>
+                  <div class="carousel-inner">
+                    @foreach($attachments as $k=>$attachment)
+                    <div class="carousel-item @if($k==0) active @endif">
+                      <img class="d-block w-100" src="{{asset('images/'.$attachment->file_name)}}" alt="First slide">
+                    </div>
+                    @endforeach
+                  </div>
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
             </div>
             <div class="col-sm-7">
                 <div class="product-information"><!--/product-information-->

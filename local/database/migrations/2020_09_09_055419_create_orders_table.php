@@ -22,6 +22,8 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->integer('payment_mode');
             $table->enum('status', ['order_pending', 'order_place', 'order_cancel', 'order_success', 'order_complete']);
+            $table->timestamps('order_date');
+            $table->timestamps('delivery_date');
             $table->timestamps();
         });
     }

@@ -33,6 +33,7 @@
                                         <th>Sub Category</th>
                                         <th>Price</th>
                                         <th>Description</th>
+                                        <th>Featured</th>
                                         <th>Visits</th>
                                         <th>Action</th>
                                     </tr>
@@ -46,6 +47,7 @@
                                         <td>{{\App\Models\SubCategory::getTitle($product->sub_category_id)}}</td>                                    
                                         <td>{{$product->price}}</td>                                   
                                         <td>{!! str_limit($product->description, 100) !!}</td>  
+                                        <td>{{$product->featured == 0 ? 'No' : 'Yes'}}</td>                                 
                                         <td>{{$product->visits}}</td>                                 
 										<td>
 											<form method="post" action="{{route('product.destroy', $product->id)}}">

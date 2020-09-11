@@ -21,7 +21,7 @@
         	<div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <a href="{{route('order.create')}}" class="btn btn-xs btn-primary pull-right"><i class="ti-plus"></i> Add New</a>
+                        <!-- <a href="{{route('order.create')}}" class="btn btn-xs btn-primary pull-right"><i class="ti-plus"></i> Add New</a> -->
                         <h4 class="header-title">Order's List</h4>
                         <div class="row">
                             <div class="col-md-2">
@@ -30,13 +30,6 @@
                             <div class="col-md-2">
                                 <select name="filter_product" id="filter_product" class="form-control">
                                     <option value="">Select Product</option>
-                                    @foreach($data['product'] as $product)
-                                        @if($product->id == $data['filter_product'])
-                                        <option value="{{$product->id}}" selected>{{\App\Models\Item::getTitle($product->item_id)}}</option>
-                                        @else
-                                        <option value="{{$product->id}}">{{\App\Models\Item::getTitle($product->item_id)}}</option>
-                                        @endif
-                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -75,10 +68,9 @@
                                 <thead class="bg-light text-capitalize">
                                     <tr>
                                         <th>Customer</th>
-                                        <th>Product</th>
-                                        <th>Unit Cost</th>
-                                        <th>Quantity</th>
                                         <th>Total Amount</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
                                         <th>Payment Mode</th>
                                         <th>Status</th>
                                         <th>Order Date</th>
@@ -91,10 +83,9 @@
                                     @php($item = \App\Models\Product::getItemByProductId($order->product_id))
                                     <tr>
                                         <td>{{\App\Models\User::getName($order->customer_id)}}</td>
-                                        <td>{{$item->title}}</td>
-                                        <td>{{\App\Models\Product::getProductPrice($order->product_id)}}</td>
-                                        <td>{{$order->quantity}}</td>
-										<td>{{$order->total_amount}}</td>
+                                        <td>{{$order->total_amount}}</td>
+                                        <td>{{$order->phone}}</td>
+										<td>{{$order->address}}</td>
                                         <td>{{\App\Models\Order::getOrderPaymentMode($order->payment_mode)}}</td>
                                         <td>{{\App\Models\Order::getOrderStatus($order->status)}}</td>
                                         <td>{{$order->order_date}}</td>
@@ -133,6 +124,7 @@
 <script>
 	$('#vendor_list').DataTable({
 		paging: false,
+        searching: false,
 	});
 </script>
 @endsection

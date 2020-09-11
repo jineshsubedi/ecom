@@ -18,36 +18,36 @@
                             <li @if(Request::segment(1)=='dashboard' ) class="active" @endif>
                                 <a href="{{route('home')}}" aria-expanded="false"><i class="ti-dashboard"></i><span>Dashboard</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='profile' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='profile' ) class="active" @endif>
                                 <a href="{{route('profile', Auth::user()->id)}}" aria-expanded="false"><i class="ti-layout-tab"></i><span>Profile</span></a>
                             </li>
                             @if(Auth::user()->role == 'super admin')
-                            <li @if(Request::segment(1)=='setting' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='setting' ) class="active" @endif>
                                 <a href="{{route('setting')}}" aria-expanded="false"><i class="ti-settings"></i><span>Setting</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='user' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='user' ) class="active" @endif>
                                 <a href="{{route('user.index')}}" aria-expanded="false"><i class="ti-user"></i><span>User</span></a>
                             </li>
                             @endif
-                            <li @if(Request::segment(1)=='setting' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='setting' ) class="active" @endif>
                                 <a href="{{route('customer.index')}}" aria-expanded="false"><i class="fa fa-users"></i><span>Customer</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='category' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='category' ) class="active" @endif>
                                 <a href="{{route('category.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Category</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='sub_category' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='sub_category' ) class="active" @endif>
                                 <a href="{{route('sub_category.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Sub Category</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='product' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='product' ) class="active" @endif>
                                 <a href="{{route('product.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Product</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='order' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='order' ) class="active" @endif>
                                 <a href="{{route('order.index')}}" aria-expanded="false"><i class="ti-shopping-cart"></i><span>Order</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='blog' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='blog' ) class="active" @endif>
                                 <a href="{{route('blog.index')}}" aria-expanded="false"><i class="ti-rss"></i><span>Blog</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='message' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='message' ) class="active" @endif>
                                 <a href="{{route('message.index')}}" aria-expanded="false"><i class="ti-comment-alt"></i><span>Messages</span></a>
                             </li>
                         @else
