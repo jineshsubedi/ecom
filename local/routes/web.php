@@ -30,10 +30,8 @@ Route::group(['middleware' => ['web']], function(){
 	Route::post('/cart/removeItem', 'Theme\ThemeController@cartRemoveItem')->name('cartRemoveItem')->middleware('auth');
 	Route::post('/cart/updateCart', 'Theme\ThemeController@updateCart')->name('updateCart')->middleware('auth');
 	// Route::get('/checkout', 'Theme\ThemeController@checkout');
-	
 
 	Route::get('get_cart_product', 'Theme\ThemeController@getMyCart')->name('getMyCart');
-
 	Route::post('getSubCategoryByCategoryId', 'Theme\ThemeController@getSubCategoryByCategoryId')->name('getSubCategoryByCategoryId');
 });
 

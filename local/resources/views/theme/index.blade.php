@@ -146,13 +146,13 @@
                                             <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                             <h2>Rs {{$product->price}}</h2>
                                             <p>{{$product->title}}</p>
-                                            <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2>$56</h2>
                                                 <p>{{$product->title}}</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
                                 </div>
@@ -187,7 +187,7 @@
                                                 <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                                 <h2>Rs. {{$product->price}}</h2>
                                                 <p>{{$product->title}}</p>
-                                                <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
                                     </div>
@@ -214,9 +214,8 @@
                                                     <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
                                                     <h2>{{$p['price']}}</h2>
                                                     <p>{{$p['title']}}</p>
-                                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                    <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
-                                                
                                             </div>
                                         </div>
                                     </div>

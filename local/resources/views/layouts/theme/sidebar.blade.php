@@ -47,12 +47,12 @@
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="{{url('/shop')}}">Products</a></li>
                                         @auth
-                                        <li><a href="{{url('/cart')}}">Checkout</a></li>
-                                        <li><a href="{{url('/checkout')}}">Cart</a></li>
+                                        <li><a href="{{url('/cart')}}">Cart</a></li>
+                                        <li><a href="{{url('/checkout')}}">Checkout</a></li>
                                         @endauth
                                     </ul>
                                 </li>
-                                <li><a href="">Blog</a></li>
+                                <li><a href="{{url('/blog')}}">Blog</a></li>
                                 <li><a href="{{url('/contact-us')}}">Contact</a></li>
                             </ul>
                         </div>

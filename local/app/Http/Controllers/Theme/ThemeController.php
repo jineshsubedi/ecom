@@ -39,24 +39,21 @@ class ThemeController extends Controller
     }
     public function shop()
     {
-        $categories = Category::orderBy('title', 'asc')->limit(30)->get();
-        $products = Product::leftjoin('items','items.id','products.item_id')
-            ->select('products.*','items.title as item_name', 'items.slug as item_slug')
-            ->orderBy('products.id', 'desc')
+        $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
+        $products = Product::orderBy('id', 'desc')
             ->with('product_attachment')
-            ->paginate(10);
+            ->paginate(3);
     	return view('theme.shop', compact('categories', 'products'));
     }
     public function shop_detail($id)
     {
-        $product = Product::leftjoin('items','items.id','products.item_id')
-            ->where('items.slug', $id)
-            ->select('products.*','items.title as item_name', 'items.slug as item_slug')
-            ->orderBy('products.id', 'desc')
+        $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
+        $product = Product::where('slug', $id)
+            ->orderBy('id', 'desc')
             ->with('product_attachments')
             ->first();
-        // return $product;
-    	return view('theme.shop_detail', compact('product'));
+        return $product;   
+    	return view('theme.shop_detail', compact('product', 'categories'));
     }
     public function cart()
     {
