@@ -29,7 +29,7 @@
                                 <a href="{{route('user.index')}}" aria-expanded="false"><i class="ti-user"></i><span>User</span></a>
                             </li>
                             @endif
-                            <li @if(Request::segment(2)=='setting' ) class="active" @endif>
+                            <li @if(Request::segment(2)=='customer' ) class="active" @endif>
                                 <a href="{{route('customer.index')}}" aria-expanded="false"><i class="fa fa-users"></i><span>Customer</span></a>
                             </li>
                             <li @if(Request::segment(2)=='category' ) class="active" @endif>
