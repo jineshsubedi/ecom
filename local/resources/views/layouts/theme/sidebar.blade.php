@@ -4,7 +4,7 @@
                 <div class="row">
                     <div class="col-md-4 clearfix">
                         <div class="logo pull-left">
-                            <a href="{{url('/')}}"><img src="{{asset('images/'.\App\Models\Setting::getLogo())}}" alt="" /></a>
+                            <a href="{{url('/')}}"><img src="{{asset('images/'.\App\Models\Setting::getLogo())}}" width="80px"/></a>
                         </div>
                     </div>
                     <div class="col-md-8 clearfix">
