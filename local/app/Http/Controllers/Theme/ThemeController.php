@@ -49,9 +49,9 @@ class ThemeController extends Controller
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
         $product = Product::where('slug', $id)
             ->orderBy('id', 'desc')
-            ->with('product_attachments')
+            ->with('product_attachments','product_attachment')
             ->first();
-        return $product;   
+        // return $product;
     	return view('theme.shop_detail', compact('product', 'categories'));
     }
     public function cart()
