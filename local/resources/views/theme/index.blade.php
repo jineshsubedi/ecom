@@ -65,7 +65,78 @@
             </div>
         </div>
     </section><!--/slider-->
-    
+    <section id="featured_section">
+        <div class="container">
+            <div class="row">
+            <div class="col-md-3">
+                <a href="">
+                    <img src="https://www.webstaurantstore.com/images/home-page-ads/2/244715FC-C56E-7A0D-371E4B425F0D7CEE.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="">
+                    <img src="https://www.webstaurantstore.com/images/home-page-ads/2/24519A14-E63B-DC83-AEED27193645CEF6.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="">
+                    <img src="https://www.webstaurantstore.com/images/home-page-ads/2/245B3A47-F2E4-559E-25F5662B5F487694.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="">
+                    <img src="https://www.webstaurantstore.com/images/home-page-ads/2/2461F680-C9BA-70AC-E442162ACD5407C2.jpg" width="100%">
+                </a>
+            </div>
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <section id="festival_product">
+        <div class="container" style="border: 1px solid #eaeaea">
+            <div class="col-md-4">
+                <a href="">
+                    <img src="https://cdnimg.webstaurantstore.com/images/home-page-carousels/c/c09493b4-d687-e1bb-1765abe48f7a24da.jpg" width="100%">
+                </a>
+            </div>
+            <div class="col-md-8">
+                @if(count($recomended_products) > 0)
+                    <div class="recommended_items"><!--recommended_items-->
+                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                @foreach($recomended_products as $k=>$product)
+                                <div class="item @if($k==0) active @endif"> 
+                                    @foreach($product as $p)  
+                                    <div class="col-sm-4">
+                                        <div class="product-image-wrapper">
+                                            <div class="single-products">
+                                                <div class="productinfo text-center">
+                                                    <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
+                                                    <h2>{{$p['price']}}</h2>
+                                                    <p>{{$p['title']}}</p>
+                                                    <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                @endforeach
+                            </div>
+                             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                                <i class="fa fa-angle-left"></i>
+                              </a>
+                              <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                                <i class="fa fa-angle-right"></i>
+                              </a>          
+                        </div>
+                    </div><!--/recommended_items-->
+                    @endif
+            </div>
+        </div>
+    </section>
+    <br><br>
+    <div class="clearfix"></div>
     <section>
         <div class="container">
             <div class="row">
