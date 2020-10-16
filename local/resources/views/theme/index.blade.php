@@ -2,7 +2,7 @@
 @section('content')
 
     <section id="slider"><!--slider-->
-        <div class="container">
+        <div class="col-lg-12">
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
@@ -15,42 +15,37 @@
                         <div class="carousel-inner">
                             <div class="item active">
                                 <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free E-Commerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                    <h1>REFRIGERATORS</h1>
+                                    <h2>Undercounter and Worktop</h2>
+                                    <p>A refrigerator (colloquially fridge) consists of a thermally insulated compartment and a heat pump (mechanical, electronic or chemical) that transfers heat from its...</p>
+                                    <a href="#" class="btn btn-default get">Get it now</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{asset('theme/images/home/girl1.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('theme/images/home/pricing.png')}}"  class="pricing" alt="" />
+                                    <img src="https://images-na.ssl-images-amazon.com/images/I/61z6g4vnPLL._AC_SX522_.jpg" class="girl img-responsive" alt="" />
                                 </div>
                             </div>
                             <div class="item">
                                 <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>100% Responsive Design</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                    <h1>DINNERWARE</h1>
+                                    <h2>New countryside Melamine</h2>
+                                    <p>Dinnerware is sold for individual place settings, mix and match, as well as comprehensive dinnerware sets. Place settings typically include everything needed for... </p>
+                                    <a href="#" class="btn btn-default get">Get it now</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{asset('theme/images/home/girl2.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('theme/images/home/pricing.png')}}"  class="pricing" alt="" />
+                                    <img src="https://arianeporcelain.com/sys/uploads/2015/10/ECLIPSE-FLAT-PLATE-19-CM1.png" class="girl img-responsive" alt="" />
                                 </div>
                             </div>
-                            
                             <div class="item">
                                 <div class="col-sm-6">
-                                    <h1><span>E</span>-SHOPPER</h1>
-                                    <h2>Free Ecommerce Template</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-                                    <button type="button" class="btn btn-default get">Get it now</button>
+                                    <h1>WORK TABLE</h1>
+                                    <h2>Stainless Steel</h2>
+                                    <p>Table Workbench Stainless Steel - Dishwasher - Work is a 594x827 PNG image with a transparent background. Tagged under Dishwasher, Furniture...</p>
+                                    <a href="#" class="btn btn-default get">Get it now</a>
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="{{asset('theme/images/home/girl3.jpg')}}" class="girl img-responsive" alt="" />
-                                    <img src="{{asset('theme/images/home/pricing.png')}}" class="pricing" alt="" />
+                                    <img src="https://www.highgravitybrew.com/store/pc/catalog/work-table-1-detail.png" class="girl img-responsive" alt="" />
                                 </div>
                             </div>
-                            
                         </div>
                         
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -64,7 +59,8 @@
                 </div>
             </div>
         </div>
-    </section><!--/slider-->
+    </section>
+    <!--/slider-->
     <section id="featured_section">
         <div class="container">
             <div class="row">
@@ -93,7 +89,7 @@
     </section>
     <br><br>
     <section id="festival_product">
-        <div class="container" style="border: 1px solid #eaeaea">
+        <div class="container" style="border: 1px solid #dcdcf7">
             <div class="col-md-4">
                 <a href="">
                     <img src="https://cdnimg.webstaurantstore.com/images/home-page-carousels/c/c09493b4-d687-e1bb-1765abe48f7a24da.jpg" width="100%">
