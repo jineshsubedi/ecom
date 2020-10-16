@@ -14,6 +14,7 @@
                         
                         <div class="carousel-inner">
                             <div class="item active">
+
                                 <div class="col-sm-6">
                                     <h1>REFRIGERATORS</h1>
                                     <h2>Undercounter and Worktop</h2>
