@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\Item;
+use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -19,13 +20,16 @@ class ThemeController extends Controller
     public function index(Request $request)
     {
         $featured_products = Product::where('featured', 1)->with('product_attachment')->limit(6)->get();
+        $new_products = Product::where('new', 1)->with('product_attachment')->limit(6)->get();
         $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
         $recomended_products =array_chunk($recomended_products, 3);
         $featured_categories = Category::where('featured', 1)->orderBy('title', 'asc')->get();
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
 
-    	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories'));
+        $sliders = Slider::orderBy('id', 'desc')->where('active', 0)->get();
+
+    	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories', 'new_products', 'sliders'));
     }
 
     public function about_us()
@@ -147,20 +151,11 @@ class ThemeController extends Controller
             }
             $total_cost = $cart->unit_cost * $request->quantity[$i];
             $cart->update(['quantity' => $request->quantity[$i], 'total_cost' => $total_cost]);
-            $order_code = 'Order-'.Carbon::today()->format('ymd').'-'.(Order::where('order_date', Date('Y-m-d'))->count()+1);
-            Order::create([
-                'customer_id' => $cart->customer_id,
-                'product_id' => $cart->product_id,
-                'order_code' => $order_code,
-                'quantity' => $cart->quantity,
-                'total_amount' => $cart->total_cost,
-                'order_date' => Date('Y-m-d'),
-            ]);
+            // $order_code = 'Order-'.Carbon::today()->format('ymd').'-'.(Order::where('order_date', Date('Y-m-d'))->count()+1);
         }
-        Cart::where('customer_id', Auth::user()->id)->delete();
 
-        alert()->success('Success', 'Order Created!');
-        return redirect()->route('myorder');
+        alert()->success('Success', 'Order Updated!');
+        return redirect()->back();
     }
     public function getSubCategoryByCategoryId(Request $request)
     {

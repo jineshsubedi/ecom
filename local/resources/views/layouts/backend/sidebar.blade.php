@@ -29,6 +29,9 @@
                                 <a href="{{route('user.index')}}" aria-expanded="false"><i class="ti-user"></i><span>User</span></a>
                             </li>
                             @endif
+                            <li @if(Request::segment(2)=='slider' ) class="active" @endif>
+                                <a href="{{route('slider.index')}}" aria-expanded="false"><i class="fa fa-image"></i><span>Slider</span></a>
+                            </li>
                             <li @if(Request::segment(2)=='customer' ) class="active" @endif>
                                 <a href="{{route('customer.index')}}" aria-expanded="false"><i class="fa fa-users"></i><span>Customer</span></a>
                             </li>

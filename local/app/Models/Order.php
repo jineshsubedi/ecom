@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $fillable = [
-        'customer_id', 'total_cost', 'phone', 'address', 'payment_mode', 'status', 'order_date', 'delivery_date'
+        'customer_id', 'total_cost', 'phone', 'address', 'payment_mode', 'status', 'order_date', 'delivery_date','shipping_amount', 'tax_amount'
     ];
 
     public static function getOrderPaymentMode($id)

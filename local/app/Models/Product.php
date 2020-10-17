@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'category_id', 'sub_category_id', 'price', 'description', 'visits', 'featured'
+        'title', 'slug', 'category_id', 'sub_category_id', 'price', 'description', 'brand', 'visits', 'featured', 'new'
     ];
 
     public static function getItemByProductId($id)
@@ -27,7 +27,28 @@ class Product extends Model
     		return 0.0;
     	}
     }
-
+    public static function getTitle($id)
+    {
+        $data = Product::find($id);
+        if($data)
+        {
+            return $data->title;
+        }
+        else{
+            return 0.0;
+        }
+    }
+    public static function getSlug($id)
+    {
+        $data = Product::find($id);
+        if($data)
+        {
+            return $data->slug;
+        }
+        else{
+            return 0.0;
+        }
+    }
     public function category()
     {
         return $this->belongsTo('\App\Models\Category');

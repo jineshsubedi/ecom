@@ -1,195 +1,95 @@
 @extends('layouts.theme.app')
 @section('content')
 
-<!-- Start All Title Box -->
-    <div class="all-title-box">
+    <section id="cart_items">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Checkout</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">Checkout</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End All Title Box -->
-
+            <div class="breadcrumbs">
+                <ol class="breadcrumb">
+                  <li><a href="#">Home</a></li>
+                  <li class="active">Check out</li>
+                </ol>
+            </div><!--/breadcrums-->
+    </section>
     <!-- Start Cart  -->
-    <div class="cart-box-main">
-        <div class="container">
-            <div class="row new-account-login">
-                <div class="col-sm-6 col-lg-6 mb-3">
-                    <div class="title-left">
-                        <h3>Account Login</h3>
-                    </div>
-                    <h5><a data-toggle="collapse" href="#formLogin" role="button" aria-expanded="false">Click here to Login</a></h5>
-                    <form class="mt-3 collapse review-form-box" id="formLogin">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="InputEmail" class="mb-0">Email Address</label>
-                                <input type="email" class="form-control" id="InputEmail" placeholder="Enter Email"> </div>
-                            <div class="form-group col-md-6">
-                                <label for="InputPassword" class="mb-0">Password</label>
-                                <input type="password" class="form-control" id="InputPassword" placeholder="Password"> </div>
-                        </div>
-                        <button type="submit" class="btn hvr-hover">Login</button>
-                    </form>
-                </div>
-                <div class="col-sm-6 col-lg-6 mb-3">
-                    <div class="title-left">
-                        <h3>Create New Account</h3>
-                    </div>
-                    <h5><a data-toggle="collapse" href="#formRegister" role="button" aria-expanded="false">Click here to Register</a></h5>
-                    <form class="mt-3 collapse review-form-box" id="formRegister">
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="InputName" class="mb-0">First Name</label>
-                                <input type="text" class="form-control" id="InputName" placeholder="First Name"> </div>
-                            <div class="form-group col-md-6">
-                                <label for="InputLastname" class="mb-0">Last Name</label>
-                                <input type="text" class="form-control" id="InputLastname" placeholder="Last Name"> </div>
-                            <div class="form-group col-md-6">
-                                <label for="InputEmail1" class="mb-0">Email Address</label>
-                                <input type="email" class="form-control" id="InputEmail1" placeholder="Enter Email"> </div>
-                            <div class="form-group col-md-6">
-                                <label for="InputPassword1" class="mb-0">Password</label>
-                                <input type="password" class="form-control" id="InputPassword1" placeholder="Password"> </div>
-                        </div>
-                        <button type="submit" class="btn hvr-hover">Register</button>
-                    </form>
-                </div>
-            </div>
+    <div class="cart-box-main mb-3">
+        <div class="container" style="border: 1px solid #2b2b63; border-radius: 5px;">
             <div class="row">
-                <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="col-sm-8 col-lg-8 mb-3">
                     <div class="checkout-address">
                         <div class="title-left">
-                            <h3>Billing address</h3>
+                            <h2>Billing address</h2>
                         </div>
-                        <form class="needs-validation" novalidate>
+                        <form action="{{route('place_order')}}" method="post">
+                            @csrf
+                            @php($address = \App\Models\CustomerAddress::getMyAddress())
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="firstName">First name *</label>
-                                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid first name is required. </div>
+                                    <input type="text" class="form-control" name="first_name" id="firstName" placeholder="" value="{{isset($address->first_name) ? $address->first_name : ''}}" required>
+                                    <!-- <div class="invalid-feedback"> Valid first name is required. </div> -->
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="lastName">Last name *</label>
-                                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                                    <div class="invalid-feedback"> Valid last name is required. </div>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="username">Username *</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" id="username" placeholder="" required>
-                                    <div class="invalid-feedback" style="width: 100%;"> Your username is required. </div>
+                                    <input type="text" class="form-control" name="last_name" id="lastName" placeholder="" value="{{isset($address->last_name) ? $address->last_name : ''}}" required>
+                                    <!-- <div class="invalid-feedback"> Valid last name is required. </div> -->
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email Address *</label>
-                                <input type="email" class="form-control" id="email" placeholder="">
-                                <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div>
+                                <input type="email" class="form-control" name="email" id="email" placeholder="" value="{{isset($address->email) ? $address->email : ''}}" required>
+                                <!-- <div class="invalid-feedback"> Please enter a valid email address for shipping updates. </div> -->
                             </div>
                             <div class="mb-3">
-                                <label for="address">Address *</label>
-                                <input type="text" class="form-control" id="address" placeholder="" required>
-                                <div class="invalid-feedback"> Please enter your shipping address. </div>
+                                <label for="phone_number">Phone Number *</label>
+                                <input type="text" class="form-control" name="phone_number" id="phone_number" placeholder="" value="{{isset($address->phone_number) ? $address->phone_number : ''}}" required>
+                                <!-- <div class="invalid-feedback"> Please enter a valid phone_number address for shipping updates. </div> -->
                             </div>
                             <div class="mb-3">
-                                <label for="address2">Address 2 *</label>
-                                <input type="text" class="form-control" id="address2" placeholder=""> </div>
+                                <label for="address">Street *</label>
+                                <input type="text" class="form-control" name="street" id="address" placeholder="" value="{{isset($address->street) ? $address->street : ''}}" required>
+                                <!-- <div class="invalid-feedback"> Please enter your shipping address. </div> -->
+                            </div>
+                            <div class="mb-3">
+                                <label for="address2">City *</label>
+                                <input type="text" class="form-control" name="city" id="address2" placeholder="" value="{{isset($address->city ) ? $address->city  : ''}}" required> </div>
                             <div class="row">
                                 <div class="col-md-5 mb-3">
                                     <label for="country">Country *</label>
-                                    <select class="wide w-100" id="country">
-									<option value="Choose..." data-display="Select">Choose...</option>
-									<option value="United States">United States</option>
+                                    <select class="wide w-100" id="country" name="country">
+									<option value="nepal" data-display="Select">Nepal</option>
 								</select>
-                                    <div class="invalid-feedback"> Please select a valid country. </div>
+                                    <!-- <div class="invalid-feedback"> Please select a valid country. </div> -->
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label for="state">State *</label>
-                                    <select class="wide w-100" id="state">
-									<option data-display="Select">Choose...</option>
-									<option>California</option>
-								</select>
-                                    <div class="invalid-feedback"> Please provide a valid state. </div>
+                                    <input type="text" name="state" name="state" class="form-control" id="state" value="{{isset($address->state) ? $address->state : ''}}" required>
+                                    <!-- <div class="invalid-feedback"> Please provide a valid state. </div> -->
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label for="zip">Zip *</label>
-                                    <input type="text" class="form-control" id="zip" placeholder="" required>
-                                    <div class="invalid-feedback"> Zip code required. </div>
+                                    <input type="text" class="form-control" name="zip" id="zip" placeholder="" value="{{isset($address->zip) ? $address->zip : ''}}" required>
+                                    <!-- <div class="invalid-feedback"> Zip code required. </div> -->
                                 </div>
                             </div>
                             <hr class="mb-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="same-address">
-                                <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="save-info">
-                                <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                            </div>
-                            <hr class="mb-4">
+                            
                             <div class="title"> <span>Payment</span> </div>
                             <div class="d-block my-3">
                                 <div class="custom-control custom-radio">
-                                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                    <label class="custom-control-label" for="credit">Credit card</label>
+                                    <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required value="1">
+                                    <label class="custom-control-label" for="credit">Cash On Delivery</label>
                                 </div>
                                 <div class="custom-control custom-radio">
-                                    <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                    <label class="custom-control-label" for="debit">Debit card</label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                    <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required disabled value="2">
                                     <label class="custom-control-label" for="paypal">Paypal</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="cc-name">Name on card</label>
-                                    <input type="text" class="form-control" id="cc-name" placeholder="" required> <small class="text-muted">Full name as displayed on card</small>
-                                    <div class="invalid-feedback"> Name on card is required </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="cc-number">Credit card number</label>
-                                    <input type="text" class="form-control" id="cc-number" placeholder="" required>
-                                    <div class="invalid-feedback"> Credit card number is required </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3 mb-3">
-                                    <label for="cc-expiration">Expiration</label>
-                                    <input type="text" class="form-control" id="cc-expiration" placeholder="" required>
-                                    <div class="invalid-feedback"> Expiration date required </div>
-                                </div>
-                                <div class="col-md-3 mb-3">
-                                    <label for="cc-expiration">CVV</label>
-                                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required>
-                                    <div class="invalid-feedback"> Security code required </div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <div class="payment-icon">
-                                        <ul>
-                                            <li><img class="img-fluid" src="{{asset('theme/images/payment-icon/1.png')}}" alt=""></li>
-                                            <li><img class="img-fluid" src="{{asset('theme/images/payment-icon/2.png')}}" alt=""></li>
-                                            <li><img class="img-fluid" src="{{asset('theme/images/payment-icon/3.png')}}" alt=""></li>
-                                            <li><img class="img-fluid" src="{{asset('theme/images/payment-icon/5.png')}}" alt=""></li>
-                                            <li><img class="img-fluid" src="{{asset('theme/images/payment-icon/7.png')}}" alt=""></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="mb-1"> </form>
+                            <hr class="mb-1"> 
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-6 mb-3">
+                <div class="col-sm-4 col-lg-4 mb-3">
                     <div class="row">
-                        <div class="col-md-12 col-lg-12">
+                        <!-- <div class="col-md-12 col-lg-12">
                             <div class="shipping-method-box">
                                 <div class="title-left">
                                     <h3>Shipping Method</h3>
@@ -208,76 +108,54 @@
                                         <label class="custom-control-label" for="shippingOption3">Next Business day</label> <span class="float-right font-weight-bold">$20.00</span> </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-12 col-lg-12">
-                            <div class="odr-box">
-                                <div class="title-left">
-                                    <h3>Shopping cart</h3>
-                                </div>
-                                <div class="rounded p-2 bg-light">
-                                    <div class="media mb-2 border-bottom">
-                                        <div class="media-body"> <a href="detail.html"> Lorem ipsum dolor sit amet</a>
-                                            <div class="small text-muted">Price: $80.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $80.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="media mb-2 border-bottom">
-                                        <div class="media-body"> <a href="detail.html"> Lorem ipsum dolor sit amet</a>
-                                            <div class="small text-muted">Price: $60.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $60.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="media mb-2">
-                                        <div class="media-body"> <a href="detail.html"> Lorem ipsum dolor sit amet</a>
-                                            <div class="small text-muted">Price: $40.00 <span class="mx-2">|</span> Qty: 1 <span class="mx-2">|</span> Subtotal: $40.00</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12 col-lg-12">
                             <div class="order-box">
                                 <div class="title-left">
                                     <h3>Your order</h3>
                                 </div>
-                                <div class="d-flex">
-                                    <div class="font-weight-bold">Product</div>
-                                    <div class="ml-auto font-weight-bold">Total</div>
-                                </div>
                                 <hr class="my-1">
                                 <div class="d-flex">
                                     <h4>Sub Total</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 440 </div>
+                                    <div class="ml-auto font-weight-bold"> RS. {{$datas['total']}} </div>
                                 </div>
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                     <h4>Discount</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 40 </div>
+                                    <div class="ml-auto font-weight-bold"> - </div>
                                 </div>
                                 <hr class="my-1">
                                 <div class="d-flex">
                                     <h4>Coupon Discount</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 10 </div>
+                                    <div class="ml-auto font-weight-bold"> - </div>
                                 </div>
                                 <div class="d-flex">
                                     <h4>Tax</h4>
-                                    <div class="ml-auto font-weight-bold"> $ 2 </div>
-                                </div>
+                                    <div class="ml-auto font-weight-bold"> {{$datas['tax']}} </div>
+                                </div> -->
                                 <div class="d-flex">
                                     <h4>Shipping Cost</h4>
-                                    <div class="ml-auto font-weight-bold"> Free </div>
+                                    <div class="ml-auto font-weight-bold"> {{$datas['shipping_type']}} </div>
                                 </div>
                                 <hr>
                                 <div class="d-flex gr-total">
                                     <h5>Grand Total</h5>
-                                    <div class="ml-auto h5"> $ 388 </div>
+                                    <div class="ml-auto h5"> Rs. {{$datas['net_total']}} </div>
+                                    <input type="hidden" name="net_total" value="{{$datas['net_total']}}">
+                                    <input type="hidden" name="shipping_amount" value="0.0">
+                                    <input type="hidden" name="tax_amount" value="0.0">
                                 </div>
                                 <hr> </div>
                         </div>
-                        <div class="col-12 d-flex shopping-box"> <a href="checkout.html" class="ml-auto btn hvr-hover">Place Order</a> </div>
+                        <div class="col-12 d-flex shopping-box"> 
+                            <button type="submit" class="ml-auto btn hvr-hover btn btn-info">Place Order</button>
+                        </div>
                     </div>
                 </div>
+                </form>
             </div>
 
         </div>
     </div>
     <!-- End Cart -->
-
+    <div class="mb-3"></div>
 @endsection

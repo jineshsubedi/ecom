@@ -97,15 +97,20 @@
                                 <h2>{{$product->title}}</h2>
                                 <!-- <p>Web ID: 1089772</p> -->
                                 <img src="{{asset('theme/images/product-details/rating.png')}}" alt="" />
+                                <form action="{{route('add_to_cart')}}" method="post">
+                                @csrf
                                 <span>
                                     <span>NPR {{$product->price}}</span>
                                     <label>Quantity:</label>
-                                    <input type="text" value="1"/>
-                                    <button type="button" class="btn btn-fefault cart">
+                                    <input type="number" name="quantity" value="1" min="1" max="100"/>
+                                    <input type="hidden" name="product_id" value="{{$product->id}}"/>
+                                    <input type="hidden" name="unit_cost" value="{{$product->price}}"/>
+                                    <button type="submit" class="btn btn-fefault cart">
                                         <i class="fa fa-shopping-cart"></i>
                                         Add to cart
                                     </button>
                                 </span>
+                                </form>
                                 <p><b>Availability:</b> In Stock</p>
                                 <p><b>Condition:</b> New</p>
                                 <p><b>Brand:</b> E-SHOPPER</p>
@@ -144,7 +149,7 @@
                                             <input type="email" placeholder="Email Address" />
                                         </span>
                                         <textarea name=""></textarea>
-                                        <b>Rating: </b> <img src="images/product-details/rating.png" alt="" />
+                                        <b>Rating: </b> <img src="{{asset('theme/images/product-details/rating.png')}}" alt="" />
                                         <button type="button" class="btn btn-default pull-right">
                                             Submit
                                         </button>

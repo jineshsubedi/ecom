@@ -1,52 +1,34 @@
 @extends('layouts.theme.app')
 @section('content')
 
+    @if(count($sliders) > 0)
     <section id="slider"><!--slider-->
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-sm-12">
                     <div id="slider-carousel" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
-                            <li data-target="#slider-carousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#slider-carousel" data-slide-to="1"></li>
-                            <li data-target="#slider-carousel" data-slide-to="2"></li>
+                            @foreach($sliders as $k=>$slider)
+                            <li data-target="#slider-carousel" data-slide-to="{{$k}}" @if($k==0) class="active" @endif></li>
+                            @endforeach
                         </ol>
                         
                         <div class="carousel-inner">
-                            <div class="item active">
-
+                            @foreach($sliders as $k=>$slider)
+                            <div class="item @if($k==0) active @endif">
                                 <div class="col-sm-6">
-                                    <h1>REFRIGERATORS</h1>
-                                    <h2>Undercounter and Worktop</h2>
-                                    <p>A refrigerator (colloquially fridge) consists of a thermally insulated compartment and a heat pump (mechanical, electronic or chemical) that transfers heat from its...</p>
-                                    <a href="#" class="btn btn-default get">Get it now</a>
+                                    <h1>{{$slider->title}}</h1>
+                                    <h2>{{$slider->sub_title}}</h2>
+                                    <p>{!! $slider->description !!}</p>
+                                    @if($slider->url)
+                                    <a href="{{$slider->url}}" class="btn btn-default get">Get it now</a>
+                                    @endif
                                 </div>
                                 <div class="col-sm-6">
-                                    <img src="https://images-na.ssl-images-amazon.com/images/I/61z6g4vnPLL._AC_SX522_.jpg" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1>DINNERWARE</h1>
-                                    <h2>New countryside Melamine</h2>
-                                    <p>Dinnerware is sold for individual place settings, mix and match, as well as comprehensive dinnerware sets. Place settings typically include everything needed for... </p>
-                                    <a href="#" class="btn btn-default get">Get it now</a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="https://arianeporcelain.com/sys/uploads/2015/10/ECLIPSE-FLAT-PLATE-19-CM1.png" class="girl img-responsive" alt="" />
+                                    <img src="{{asset('images/'.$slider->image)}}" class="girl img-responsive" alt="" />
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="col-sm-6">
-                                    <h1>WORK TABLE</h1>
-                                    <h2>Stainless Steel</h2>
-                                    <p>Table Workbench Stainless Steel - Dishwasher - Work is a 594x827 PNG image with a transparent background. Tagged under Dishwasher, Furniture...</p>
-                                    <a href="#" class="btn btn-default get">Get it now</a>
-                                </div>
-                                <div class="col-sm-6">
-                                    <img src="https://www.highgravitybrew.com/store/pc/catalog/work-table-1-detail.png" class="girl img-responsive" alt="" />
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                         
                         <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
@@ -61,6 +43,7 @@
             </div>
         </div>
     </section>
+    @endif
     <!--/slider-->
     <section id="featured_section">
         <div class="container">
@@ -203,6 +186,38 @@
                 </div>
                 
                 <div class="col-sm-9 padding-right">
+                    @if(count($new_products) > 0)
+                    <div class="features_items"><!--features_items-->
+                        <h2 class="title text-center">New Items</h2>
+                        @foreach($new_products as $product)
+                        <div class="col-sm-4">
+                            <div class="product-image-wrapper">
+                                <div class="single-products">
+                                        <div class="productinfo text-center">
+                                            <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
+                                            <h2>Rs {{$product->price}}</h2>
+                                            <p>{{$product->title}}</p>
+                                            <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                        </div>
+                                        <div class="product-overlay">
+                                            <div class="overlay-content">
+                                                <h2>$56</h2>
+                                                <p>{{$product->title}}</p>
+                                                <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="choose">
+                                    <ul class="nav nav-pills nav-justified">
+                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div><!--features_items-->
+
+                    @endif
                     @if(count($featured_products) > 0)
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Features Items</h2>
@@ -304,5 +319,4 @@
             </div>
         </div>
     </section>
-
 @endsection

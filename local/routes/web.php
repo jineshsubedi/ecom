@@ -51,6 +51,8 @@ Route::group(['middleware' =>['auth']], function(){
 
 		Route::resource('/blog', 'Admin\BlogController')->middleware('admin');
 
+		Route::resource('/slider', 'Admin\SliderController')->middleware('admin');
+
 		Route::resource('/user', 'Admin\UserController')->middleware('admin');
 
 		Route::resource('/product', 'Admin\ProductController')->middleware('admin');
@@ -80,7 +82,9 @@ Route::group(['middleware' =>['auth']], function(){
 	Route::get('/myorder', 'MyCustomerController@myorder')->name('myorder')->middleware('customer');
 
 	Route::post('/add_to_cart', 'MyCustomerController@addCart')->name('add_to_cart');
-	// Route::get('/checkout', 'MyCustomerController@checkout')->middleware('customer');
+	Route::get('/mycart', 'MyCustomerController@mycart')->middleware('customer')->name('mycart');
+	Route::get('/checkout', 'MyCustomerController@checkout')->middleware('customer')->name('mycheckout');
+	Route::post('/place_order', 'MyCustomerController@place_order')->middleware('customer')->name('place_order');
 });
 
 

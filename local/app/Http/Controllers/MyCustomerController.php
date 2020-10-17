@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Auth;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\CustomerAddress;
+use App\Models\OrderItem;
+use App\Models\ProductAttachment;
 use Illuminate\Http\Request;
 
 class MyCustomerController extends Controller
@@ -43,19 +47,34 @@ class MyCustomerController extends Controller
 	    	];
 	    	$cart = Cart::create($data);
     	}
-    	
-
-    	$response = array(
-            'status' => 'success',
-            'value' => $data
-        );
-        return response()->json($response);
+        if($request->ajax()){
+            $response = array(
+                'status' => 'success',
+                'value' => $data
+            );
+            return response()->json($response);
+        }else{
+            alert()->success('Success', 'Product added to cart, Succesfully');
+            return redirect()->back();
+        }
     }
 
     public function mycart(Request $request)
     {
         // $orders = Cart::where('customer_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(20);
-        return view('theme.cart');
+        $mycart['cart'] = Cart::where('customer_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $mycart['cart']->map(function($cart){
+            $cart['product_name'] = Product::getTitle($cart->product_id);
+            $cart['product_slug'] = Product::getSlug($cart->product_id);
+            $cart['product_image'] = ProductAttachment::getProductSingleImage($cart->product_id);
+            return $cart;
+        });
+        $mycart['total'] = Cart::where('customer_id', Auth::user()->id)->sum('total_cost');
+        $mycart['tax'] = 0;
+        $mycart['shipping_cost'] = 0;
+        $mycart['shipping_type'] = 'Free';
+        $mycart['net_total'] = $mycart['total'] + $mycart['tax'] + $mycart['shipping_cost'];
+        return view('theme.cart')->with('mycart', $mycart);
     }
 
     public function myorder(Request $request)
@@ -66,6 +85,91 @@ class MyCustomerController extends Controller
 
     public function checkout(Request $request)
     {
-        
+        $datas['cart'] = Cart::where('customer_id', Auth::user()->id)->orderBy('id', 'desc')->get();
+        $datas['cart']->map(function($cart){
+            $cart['product_name'] = Product::getTitle($cart->product_id);
+            $cart['product_slug'] = Product::getSlug($cart->product_id);
+            $cart['product_image'] = ProductAttachment::getProductSingleImage($cart->product_id);
+            return $cart;
+        });
+        $datas['total'] = Cart::where('customer_id', Auth::user()->id)->sum('total_cost');
+        $datas['tax'] = 0;
+        $datas['shipping_cost'] = 0;
+        $datas['shipping_type'] = 'Free';
+        $datas['net_total'] = $datas['total'] + $datas['tax'] + $datas['shipping_cost'];
+        return view('theme.checkout')->with('datas', $datas);
+    }
+
+    public function place_order(Request $request)
+    {
+        // return $request->all();
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'street' => 'required',
+            'city' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'paymentMethod' => 'required',
+            'net_total' => 'required',
+        ]);
+        DB::beginTransaction();
+        try {
+            $addressData = [
+                'customer_id' => auth()->user()->id,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'phone_number' => $request->phone_number,
+                'street' => $request->street,
+                'city' => $request->city,
+                'country' => $request->country,
+                'state' => $request->state,
+                'zip' => $request->zip,
+            ];
+            $customer_address = \App\Models\CustomerAddress::where('customer_id', auth()->user()->id)->latest()->first();
+            if(isset($customer_address->id)){
+                $customer_address->update($addressData);
+            }else{
+                $customer_address = \App\Models\CustomerAddress::create($addressData);
+            }
+            
+            $orderData = [
+                'customer_id' => auth()->user()->id,
+                'total_cost' => $request->net_total,
+                'shipping_amount' => $request->shipping_amount,
+                'tax_amount' => $request->tax_amount,
+                'phone' => $request->phone_number,
+                'address' => $request->street.'-'.$request->city.'-'.$request->state.'-'.$request->country,
+                'payment_mode' => $request->paymentMethod,
+                'status' => 'order_pending',
+                'order_date' => Date('Y-m-d'),
+            ];
+            $cart = Cart::where('customer_id', auth()->user()->id)->get();
+            $order = Order::create($orderData);
+            foreach($cart as $c)
+            {
+                $orderItemData = [
+                    'order_id' => $order->id,
+                    'customer_id' => auth()->user()->id,
+                    'product_id' => $c->product_id,
+                    'quantity' => $c->quantity,
+                    'unit_cost' => $c->unit_cost,
+                    'total_cost' => $c->total_cost,
+                ];
+                OrderItem::create($orderItemData);
+                $c->delete();
+            }
+            DB::commit();
+        }catch (\Exception $e) {
+            DB::rollback();
+            alert()->error('Error', 'Please try again!');
+            return redirect()->back();
+        }
+        alert()->success('Success', 'Thank you! Your order has been placed!');
+        return redirect()->route('mycustomer.index');
     }
 }
