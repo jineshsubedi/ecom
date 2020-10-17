@@ -1,4 +1,15 @@
 @include('layouts.backend.header')
+@php($banner = \App\Models\Setting::getPageBanner())
+@if($banner)
+<style>
+    .login-area{
+        background-image: url('{{asset("images/".$banner)}}') !important;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+@endif
 
     <!-- login area start -->
     <div class="login-area login-bg" style="background: url('{{asset('backend/assets/images/bg/singin-bg.jpg')}}') center/cover no-repeat; position: relative;z-index: 1;">
