@@ -107,7 +107,8 @@ class SliderController extends Controller
             'sub_title' => 'sometimes',
             'url' => 'required',
             'description' => 'required',
-            'image' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
+            'active' => 'required',
+            'image' => 'sometimes|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
         $slider = Slider::findOrFail($id);
         $image = $slider->image;
@@ -129,6 +130,7 @@ class SliderController extends Controller
             'sub_title' => $request->sub_title,
             'url' => $request->url,
             'description' => $request->description,
+            'active' => $request->active,
             'image' => $image,
         ];
         Slider::find($id)->update($data);

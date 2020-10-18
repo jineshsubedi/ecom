@@ -21,14 +21,14 @@ class OrderController extends Controller
     	$data['filter_delivery_date'] = 0;
 
 
-    	$data['status'][] = ['id' => 'order_pending', 'title' => 'Order Placed'];
-    	$data['status'][] = ['id' => 'order_place', 'title' => 'Order Canceled'];
-    	$data['status'][] = ['id' => 'order_cancel', 'title' => 'Payment Success'];
-    	$data['status'][] = ['id' => 'order_success', 'title' => 'Deliver and Paid'];
+    	$data['status'][] = ['id' => 'order_pending', 'title' => 'Order Pending'];
+    	$data['status'][] = ['id' => 'order_place', 'title' => 'Order Place'];
+    	$data['status'][] = ['id' => 'order_cancel', 'title' => 'Order Cancel'];
+    	$data['status'][] = ['id' => 'order_success', 'title' => 'Order Delivered'];
     	$data['status'][] = ['id' => 'order_complete', 'title' => 'Order Complete'];
 
     	$data['payment_mode'][] = ['id' => 1, 'title' => 'Cash On Deliver'];
-    	$data['payment_mode'][] = ['id' => 2, 'title' => 'E-sewa'];
+    	$data['payment_mode'][] = ['id' => 2, 'title' => 'Paypal'];
 
         $orders = Order::orderBy('id', 'desc')->paginate(20);
         return view('admin.order.index', compact('orders'))->with('data', $data);

@@ -20,6 +20,9 @@
     .bootstrap-tagsinput {
         width:100%;
     }
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.25rem + 8px);
+    }
 </style>
 @endsection
 @section('content')

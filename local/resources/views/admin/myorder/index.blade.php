@@ -14,6 +14,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 @endsection
 @section('content')
+<style type="text/css">
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.25rem + 10px);
+    }
+</style>
 <div class="main-content-inner">
     <!-- sales report area start -->
     <div class="sales-report-area mb-5">
@@ -21,7 +26,6 @@
         	<div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <a href="#" class="btn btn-xs btn-primary pull-right"><i class="ti-plus"></i> Cart</a>
                         <h4 class="header-title">Order's List</h4>
                         <div class="row">
                         </div>
@@ -29,10 +33,9 @@
                             <table id="vendor_list" class="table table-bordered text-center">
                                 <thead class="bg-light text-capitalize">
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Unit Cost</th>
-                                        <th>Quantity</th>
                                         <th>Total Amount</th>
+                                        <th>Phone</th>
+                                        <th>Address</th>
                                         <th>Payment Mode</th>
                                         <th>Status</th>
                                         <th>Order Date</th>
@@ -42,23 +45,21 @@
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $order)
-                                    @php($item = \App\Models\Product::getItemByProductId($order->product_id))
                                     <tr>
-                                        <td>{{$item->title}}</td>
-                                        <td>{{\App\Models\Product::getProductPrice($order->product_id)}}</td>
-                                        <td>{{$order->quantity}}</td>
-										<td>{{$order->total_amount}}</td>
+                                        <td>{{$order->total_cost}}</td>
+                                        <td>{{$order->phone}}</td>
+                                        <td>{{$order->address}}</td>
                                         <td>{{\App\Models\Order::getOrderPaymentMode($order->payment_mode)}}</td>
-                                        <td>{{\App\Models\Order::getOrderStatus($order->status)}}</td>
+                                        <td>
+                                            <span class="badge badge-primary">{{\App\Models\Order::getOrderStatus($order->status)}}</span>
+                                        </td>
                                         <td>{{$order->order_date}}</td>
                                         <td>{{$order->delivery_date}}</td>
 										<td>
 											<form method="post" action="{{route('order.destroy', $order->id)}}">
 												{!! csrf_field() !!}
 												{!! method_field('DELETE') !!}
-												<!-- <a href="{{route('order.show', $order->id)}}" class="btn btn-xs btn-info"><i class="ti-eye"></i></a> -->
-												<!-- <a href="{{route('order.edit', $order->id)}}" class="btn btn-xs btn-warning"><i class="ti-pencil-alt"></i></a> -->
-												<!-- <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Are you sure?')"><i class="ti-trash"></i></button> -->
+												<a href="{{route('view_myorder', $order->id)}}" class="btn btn-xs btn-info"><i class="ti-eye"></i></a>
 											</form>
 										</td>                                   	
                                     </tr>

@@ -43,6 +43,8 @@ Route::group(['middleware' =>['auth']], function(){
 	// admin routes
 	Route::get('/dashboard', 'HomeController@index')->name('home')->middleware('admin');
 
+	Route::get('/profile/{id}','HomeController@profile')->name('profile');
+
 	Route::group(['prefix' => 'backend'], function(){
 
 		Route::get('/setting', 'HomeController@setting')->name('setting')->middleware('admin');
@@ -68,7 +70,7 @@ Route::group(['middleware' =>['auth']], function(){
 		Route::resource('/order', 'Admin\OrderController')->middleware('admin');
 		Route::get('order/customer/autocomplete', 'Admin\OrderController@customerAutocomplete')->middleware('admin');
 		
-		Route::get('/profile/{id}','HomeController@profile')->name('profile');
+		
 		Route::PUT('/profile/{id}/update','HomeController@profileUpdate')->name('profile.update');
 
 		Route::get('/message','HomeController@message')->name('message.index')->middleware('admin');
@@ -80,6 +82,7 @@ Route::group(['middleware' =>['auth']], function(){
 	//customer routes
 	Route::get('/home', 'MyCustomerController@index')->name('mycustomer.index')->middleware('customer');
 	Route::get('/myorder', 'MyCustomerController@myorder')->name('myorder')->middleware('customer');
+	Route::get('/myorder/{id}', 'MyCustomerController@view_myorder')->name('view_myorder')->middleware('customer');
 
 	Route::post('/add_to_cart', 'MyCustomerController@addCart')->name('add_to_cart');
 	Route::get('/mycart', 'MyCustomerController@mycart')->middleware('customer')->name('mycart');

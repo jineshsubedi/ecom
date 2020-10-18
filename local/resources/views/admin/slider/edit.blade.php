@@ -2,7 +2,7 @@
 @section('breadcrums')
 <div class="breadcrumbs-area clearfix">
     <ul class="breadcrumbs pull-left">
-        <li><a href="{{route('blog.index')}}">Blog</a></li>
+        <li><a href="{{route('slider.index')}}">Slider</a></li>
         <li><span>Create</span></li>
     </ul>
 </div>
@@ -20,6 +20,9 @@
     .bootstrap-tagsinput {
         width:100%;
     }
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.25rem + 8px);
+    }
 </style>
 @endsection
 @section('content')
@@ -30,15 +33,15 @@
         	<div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Create Blog</h4>
-                        <p class="text-muted font-14 mb-4">Add detail to Blog</p>
-                        <form method="post" action="{{route('blog.update', $blog->id)}}" enctype="multipart/form-data">
+                        <h4 class="header-title">Create Slider</h4>
+                        <p class="text-muted font-14 mb-4">Edit detail of Slider</p>
+                        <form method="post" action="{{route('slider.update', $slider->id)}}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                         
                         <div class="form-group">
                             <label for="example-text-input" class="col-form-label">Title</label>
-                            <input class="form-control" name="title" type="text" value="{{$blog->title}}" id="example-title-input">
+                            <input class="form-control" name="title" type="text" value="{{$slider->title}}" id="example-title-input">
                             <div class="text-danger">
                                 @if ($errors->has('title'))
                                     <span class="text-danger" role="alert">
@@ -48,30 +51,30 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="example-email-input" class="col-form-label">Seo Url</label>
-                            <input class="form-control" name="slug" type="slug" value="{{$blog->slug}}" id="example-slug-input">
+                            <label for="example-text-input" class="col-form-label">Sub Title</label>
+                            <input class="form-control" name="sub_title" type="text" value="{{$slider->sub_title}}" id="example-title-input">
                             <div class="text-danger">
-                                @if ($errors->has('slug'))
+                                @if ($errors->has('sub_title'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('slug') }}</strong>
+                                        <strong>{{ $errors->first('sub_title') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="example-tags-input" class="col-form-label">Tags</label>
-                            <input class="form-control" data-role="tagsinput" name="tags" type="tags" value="{{$blog->tags}}" id="example-tags-input">
+                            <label for="example-email-input" class="col-form-label">Url</label>
+                            <input class="form-control" name="url" type="url" value="{{$slider->url}}" id="example-url-input">
                             <div class="text-danger">
-                                @if ($errors->has('tags'))
+                                @if ($errors->has('url'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('tags') }}</strong>
+                                        <strong>{{ $errors->first('url') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="example-tel-input" class="col-form-label">Description</label>
-                            <textarea name="description" class="form-control" id="description" rows="10">{{$blog->description}}</textarea>
+                            <textarea name="description" class="form-control" id="description" rows="10">{{$slider->description}}</textarea>
                             <div class="text-danger">
                                 @if ($errors->has('description'))
                                     <span class="text-danger" role="alert">
@@ -81,10 +84,24 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="example-email-input" class="col-form-label">Status</label>
+                            <select name="active" id="active" class="form-control">
+                                <option value="0" @if($slider->active == 0) selected @endif>Active</option>
+                                <option value="1" @if($slider->active == 1) selected @endif>InActive</option>
+                            </select>
+                            <div class="text-danger">
+                                @if ($errors->has('active'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('active') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="example-datetime-local-input" class="col-form-label">Image</label>
                             <input class="form-control" name="image" type="file" id="image">
-                            @if($blog->image)
-                                <img src="{{asset('images/'.$blog->image)}}" alt="blog image" width="100px;">
+                            @if($slider->image)
+                                <img src="{{asset('images/'.$slider->image)}}" alt="slider image" width="100px;">
                             @endif
                             <div class="text-danger">
                                 @if ($errors->has('image'))
@@ -96,7 +113,7 @@
                         </div>
                         <div class="form-group">
                             <label for="example-datetime-local-input" class="col-form-label"></label>
-                            <button type="submit" class="btn btn-primary btn-xs mb-3"><i class="ti-harddrive"></i> Save</button>
+                            <button type="submit" class="btn btn-primary btn-xs mb-3"><i class="ti-harddrive"></i> Update</button>
                         </div>
                         </form>
                     </div>

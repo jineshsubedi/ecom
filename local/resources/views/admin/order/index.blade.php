@@ -14,6 +14,11 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
 @endsection
 @section('content')
+<style type="text/css">
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.25rem + 10px);
+    }
+</style>
 <div class="main-content-inner">
     <!-- sales report area start -->
     <div class="sales-report-area mb-5">
@@ -80,10 +85,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach($orders as $order)
-                                    @php($item = \App\Models\Product::getItemByProductId($order->product_id))
                                     <tr>
                                         <td>{{\App\Models\User::getName($order->customer_id)}}</td>
-                                        <td>{{$order->total_amount}}</td>
+                                        <td>{{$order->total_cost}}</td>
                                         <td>{{$order->phone}}</td>
 										<td>{{$order->address}}</td>
                                         <td>{{\App\Models\Order::getOrderPaymentMode($order->payment_mode)}}</td>

@@ -60,7 +60,7 @@
                             <li @if(Request::segment(1)=='profile' ) class="active" @endif>
                                 <a href="{{route('profile', Auth::user()->id)}}" aria-expanded="false"><i class="ti-layout-tab"></i><span>Profile</span></a>
                             </li>
-                            <li @if(Request::segment(1)=='my_order' ) class="active" @endif>
+                            <li @if(Request::segment(1)=='myorder' ) class="active" @endif>
                                 <a href="{{route('myorder')}}" aria-expanded="false"><i class="ti-shopping-cart"></i><span>My Order</span></a>
                             </li>
                         @endif

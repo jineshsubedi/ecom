@@ -82,6 +82,25 @@ class MyCustomerController extends Controller
         $orders = Order::where('customer_id', Auth::user()->id)->orderBy('id', 'desc')->paginate(20);
         return view('admin.myorder.index', compact('orders'));
     }
+    public function view_myorder($id)
+    {
+        $datas['order'] = Order::findOrFail($id);
+        $datas['order_item'] = OrderItem::where('order_id', $id)->get();
+        $datas['order_item']->map(function($item){
+            $item['product_name'] = Product::getTitle($item->product_id);
+            $item['product_slug'] = Product::getSlug($item->product_id);
+            $item['product_image'] = ProductAttachment::getProductSingleImage($item->product_id);
+            return $item;
+        });
+        $datas['customer_address'] = CustomerAddress::where('customer_id', auth()->user()->id)->first();
+        $datas['status'][] = ['id' => 'order_pending', 'title' => 'Order Pending'];
+        $datas['status'][] = ['id' => 'order_place', 'title' => 'Order Place'];
+        $datas['status'][] = ['id' => 'order_cancel', 'title' => 'Order Cancel'];
+        $datas['status'][] = ['id' => 'order_success', 'title' => 'Order Delivered'];
+        $datas['status'][] = ['id' => 'order_complete', 'title' => 'Order Complete'];
+
+        return view('admin.myorder.view')->with('datas', $datas);
+    }
 
     public function checkout(Request $request)
     {

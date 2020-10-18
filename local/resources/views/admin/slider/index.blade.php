@@ -32,6 +32,7 @@
                                         <th>Url</th>
                                         <th>Description</th>
                                         <th>Image</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -51,6 +52,13 @@
 												<a href="{{asset('images/'.$slider->image)}}" target="_blank"><img src="{{asset('images/'.$slider->image)}}" alt="" width="100px;"></a>
 											@endif
 										</td>
+                                        <td>
+                                            @if($slider->active == 0)
+                                            Active
+                                            @else
+                                            InActive
+                                            @endif
+                                        </td>
 										<td>
 											<form method="post" action="{{route('slider.destroy', $slider->id)}}">
 												{!! csrf_field() !!}
@@ -85,6 +93,7 @@
 <script>
 	$('#vendor_list').DataTable({
 		paging: false,
+        "order": []
 	});
 </script>
 @endsection
