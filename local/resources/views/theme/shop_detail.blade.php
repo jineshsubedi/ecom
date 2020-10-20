@@ -1,108 +1,36 @@
 @extends('layouts.theme.app')
 @section('content')
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 <section>
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
-                <div class="left-sidebar">
-                        <h2>Category</h2>
-                        <div class="panel-group category-products" id="accordian"><!--category-productsr-->
-                            @foreach($categories as $category)
-                            @if(count($category->sub_category) > 0)
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a href="{{url('/shop?filter_category='.$category->slug)}}">
-                                            <span class="badge pull-right" data-toggle="collapse" data-parent="#accordian" href="#{{$category->slug}}"><i class="fa fa-plus"></i></span>
-                                            {{$category->title}}
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="{{$category->slug}}" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <ul>
-                                            @foreach($category->sub_category as $subcategory)
-                                            <li><a href="{{url('/shop?filter_sub_category='.$subcategory->slug)}}">{{$subcategory->title}} </a></li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            @else
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title"><a href="{{url('/shop?filter_category='.$category->slug)}}">{{$category->title}}</a></h4>
-                                </div>
-                            </div>
-                            @endif
-                            @endforeach
-                        </div><!--/category-products-->
-                        <div class="brands_products"><!--brands_products-->
-                            <h2>Brands</h2>
-                            <div class="brands-name">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                    <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                                    <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                                    <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                                    <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                    <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                    <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
-                                </ul>
-                            </div>
-                        </div><!--/brands_products-->
-                        <div class="price-range"><!--price-range-->
-                            <h2>Price Range</h2>
-                            <div class="well text-center">
-                                 <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
-                                 <b class="pull-left">Rs {{\App\Models\Product::getMinimumPrice()}}</b> <b class="pull-right">Rs {{\App\Models\Product::getMaximumPrice()}}</b>
-                            </div>
-                        </div><!--/price-range-->
-                        <div class="shipping text-center"><!--shipping-->
-                            <img src="{{asset('theme/images/home/shipping.jpg')}}" alt="" />
-                        </div><!--/shipping-->
-                    </div>
+                @include('theme/common/left_sidebar', ['categories' => $categories])
             </div>
             
             <div class="col-sm-9 padding-right">
                     <div class="product-details">
                         <!--product-details-->
                         <div class="col-sm-5">
-                            <div class="view-product">
-                                <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
-                                <!-- <h3>ZOOM</h3> -->
-                            </div>
-                            <div id="similar-product" class="carousel slide" data-ride="carousel">
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    @foreach($product->product_attachments as $attachment)
-                                    <div class="item @if($attachment->file_name == $product->product_attachment->file_name) active @endif" style="width:100%">
-                                        <a href=""><img src="{{asset('images/'.$attachment->file_name)}}" width="100px"></a>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                <!-- Controls -->
-                                <a class="left item-control" href="#similar-product" data-slide="prev">
-                                    <i class="fa fa-angle-left"></i>
-                                </a>
-                                <a class="right item-control" href="#similar-product" data-slide="next">
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
+                            @include('/theme/common/product_maginifier', ['product' => $product])
                         </div>
                         <div class="col-sm-7">
                             <div class="product-information">
                                 <!--/product-information-->
                                 <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                                 <h2>{{$product->title}}</h2>
-                                <!-- <p>Web ID: 1089772</p> -->
-                                <img src="{{asset('theme/images/product-details/rating.png')}}" alt="" />
+                                
+                                @include('/theme/common/rating_display', ['avg_rating' => $avg_rating, 'product_id'=> $product->id])
+
                                 <form action="{{route('add_to_cart')}}" method="post">
                                 @csrf
                                 <span>
                                     <span>NPR {{$product->price}}</span>
                                     <label>Quantity:</label>
-                                    <input type="number" name="quantity" value="1" min="1" max="100"/>
+                                    <input type="number" name="quantity" value="{{$product->inventory > 0 ? 1 : 0}}" min="1" max="{{$product->inventory}}"/>
                                     <input type="hidden" name="product_id" value="{{$product->id}}"/>
                                     <input type="hidden" name="unit_cost" value="{{$product->price}}"/>
                                     <button type="submit" class="btn btn-fefault cart">
@@ -111,10 +39,14 @@
                                     </button>
                                 </span>
                                 </form>
-                                <p><b>Availability:</b> In Stock</p>
+                                <p><b>Availability:</b> @if($product->inventory > 0) In Stock ({{$product->inventory}}) @else <span class="text-danger">Out of stock!</span> @endif</p>
+                                @if($product->new == 1)
                                 <p><b>Condition:</b> New</p>
-                                <p><b>Brand:</b> E-SHOPPER</p>
-                                <a href=""><img src="{{asset('theme/images/product-details/share.png')}}" class="share img-responsive" alt="" /></a>
+                                @endif
+                                <p><b>Brand:</b> {{$product->brand}}</p>
+                                @php($url = url('/shop/'.$product->slug))
+                                @include('/theme/common/share', ['url'=> $url])
+
                             </div>
                             <!--/product-information-->
                         </div>
@@ -127,7 +59,7 @@
                                 <li class="active"><a href="#details" data-toggle="tab">Details</a></li>
                                 <!-- <li><a href="#companyprofile" data-toggle="tab">Company Profile</a></li>
                                 <li><a href="#tag" data-toggle="tab">Tag</a></li> -->
-                                <li><a href="#reviews" data-toggle="tab">Reviews (5)</a></li>
+                                <li><a href="#reviews" data-toggle="tab">Reviews ({{count($ratings)}})</a></li>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -136,122 +68,118 @@
                             </div>
                             <div class="tab-pane fade" id="reviews">
                                 <div class="col-sm-12">
-                                    <ul>
-                                        <li><a href=""><i class="fa fa-user"></i>EUGEN</a></li>
-                                        <li><a href=""><i class="fa fa-clock-o"></i>12:41 PM</a></li>
-                                        <li><a href=""><i class="fa fa-calendar-o"></i>31 DEC 2014</a></li>
-                                    </ul>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                    @if(auth()->check())
                                     <p><b>Write Your Review</b></p>
-                                    <form action="#">
+                                    <form action="{{route('rating')}}" method="post">
+                                        @csrf
                                         <span>
-                                            <input type="text" placeholder="Your Name" />
-                                            <input type="email" placeholder="Email Address" />
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                            <input type="text" name="name" placeholder="Your Name" value="{{old('name')}}" />
+                                            @if ($errors->has('name'))
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                            @endif
+                                            <input type="email" name="email" placeholder="Email Address" value="{{old('email')}}" />
+                                            @if ($errors->has('email'))
+                                                <span class="text-danger" role="alert">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
                                         </span>
-                                        <textarea name=""></textarea>
-                                        <b>Rating: </b> <img src="{{asset('theme/images/product-details/rating.png')}}" alt="" />
-                                        <button type="button" class="btn btn-default pull-right">
+                                        <textarea name="description">{{old('description')}}</textarea>
+                                        @if ($errors->has('description'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('description') }}</strong>
+                                            </span>
+                                        @endif
+                                        <b>Rating: </b> 
+                                        <span id="halfstarsReview"></span>
+                                        @if ($errors->has('rate'))
+                                            <span class="text-danger" role="alert">
+                                                <strong>{{ $errors->first('rate') }}</strong>
+                                            </span>
+                                        @endif
+                                        <input type="hidden" name="rate" id="half_rate_star">
+                                        <button type="submit" class="btn btn-default pull-right">
                                             Submit
                                         </button>
                                     </form>
+                                    @else
+                                    <p><b>Login to Write a Review.</b></p>
+                                    @endif
                                 </div>
+                                <div class="clearfix"></div>
+                                @if(count($ratings) > 0)
+                                <div class="col-sm-12" style="margin-top: 20px;  border:1px solid grey; padding: 20px; max-height: 400px; overflow-y: scroll">
+                                    <div>
+                                        @foreach($ratings as $rating)
+                                        <ul>
+                                            <li><a href=""><i class="fa fa-user"></i>{{$rating->name}}</a></li>
+                                            <li><a href=""><i class="fa fa-clock-o"></i>{{\Carbon\Carbon::parse($rating->created_at)->format('H:i a')}}</a></li>
+                                            <li><a href=""><i class="fa fa-calendar-o"></i>{{\Carbon\Carbon::parse($rating->created_at)->format('d M, Y')}}</a></li>
+                                            @if(auth()->check())
+                                            @if($rating->user_id == auth()->user()->id)
+                                            <li><a href="{{route('deleteRating', $rating->id)}}" class="text-danger" onclick="return confirm('are you sure?')"><i class="fa fa-trash"></i>Remove</a></li>
+                                            @endif
+                                            @endif
+                                        </ul>
+                                        <p>{!! $rating->description !!}</p>
+                                        <hr>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
                     <!--/category-tab-->
-                    <div class="recommended_items">
-                        <!--recommended_items-->
+                    @if(count($recomended_products) > 0)
+                    <div class="recommended_items"><!--recommended_items-->
                         <h2 class="title text-center">recommended items</h2>
+                        
                         <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-                                <div class="item active">
+                                @foreach($recomended_products as $k=>$product)
+                                <div class="item @if($k==0) active @endif"> 
+                                    @foreach($product as $p)  
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
-                                                    <img src="images/home/recommend1.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
+                                                    <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
+                                                    <h2>{{$p['price']}}</h2>
+                                                    <p>{{$p['title']}}</p>
+                                                    <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="images/home/recommend2.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="images/home/recommend3.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                                <div class="item">
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="images/home/recommend1.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="images/home/recommend2.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="product-image-wrapper">
-                                            <div class="single-products">
-                                                <div class="productinfo text-center">
-                                                    <img src="images/home/recommend3.jpg" alt="" />
-                                                    <h2>$56</h2>
-                                                    <p>Easy Polo Black Edition</p>
-                                                    <button type="button" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
-                            <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                              </a>
+                              <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
                                 <i class="fa fa-angle-right"></i>
-                            </a>
+                              </a>          
                         </div>
-                    </div>
+                    </div><!--/recommended_items-->
+                    @endif
                     <!--/recommended_items-->
                 </div>
         </div>
     </div>
 </section>
+<script src="{{asset('theme/js/rating.js')}}"></script>
+<script type="text/javascript">
+    $("#halfstarsReview").rating({
+        "half": true,
+        "click": function (e) {
+            $("#half_rate_star").val(e.stars);
+        }
+    });
+</script>
 @endsection

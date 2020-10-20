@@ -35,4 +35,15 @@ class User extends Authenticatable
         }
         return '';
     }
+    public static function getPhoto($id)
+    {
+        $data = User::findOrFail($id);
+        if($data){
+            if($data->image != NULL)
+            {
+                return 'images/'.$data->image;
+            }
+        }
+        return 'theme/images/no-img.jpg';
+    }
 }

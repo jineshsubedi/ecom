@@ -70,7 +70,7 @@
                             <!-- <p>24 H</p> -->
                         </div>
                         <div class="d-flex justify-content-between pb-2">
-                            <h2>0</h2>
+                            <h2>{{$data['countOrder']}}</h2>
                             <!-- <span>- 45.87</span> -->
                         </div>
                     </div>
@@ -96,6 +96,7 @@
                     <div class="market-status-table mt-4">
                         <div class="table-responsive">
                             <table class="dbkit-table">
+                                <thead>
                                 <tr class="heading-td">
                                     <td class="mv-icon">Customer</td>
                                     <td class="trends">Total Amount</td>
@@ -104,13 +105,27 @@
                                     <td class="stats-chart">Order Date</td>
                                     <td class="stats-chart">Date</td>
                                     <td class="stats-chart">action</td>
-                                </tr>
+                                </tr></thead>
                                 <tbody>
+                                    @if(count($data['orders']) > 0)
+                                    @foreach($data['orders'] as $order)
+                                    <tr>
+                                        <td class="mv-icon">{{\App\Models\User::getName($order->customer_id)}}</td>
+                                        <td class="trends">{{$order->total_cost}}</td>
+                                        <td>{{\App\Models\Order::getOrderPaymentMode($order->payment_mode)}}</td>
+                                        <td class="attachments">{{\App\Models\Order::getOrderStatus($order->status)}}</td>
+                                        <td class="stats-chart">{{$order->order_date}}</td>
+                                        <td class="stats-chart">{{$order->delivery_date}}</td>
+                                        <td class="stats-chart">action</td>
+                                    </tr>
+                                    @endforeach
+                                    @else
                                     <tr>
                                         <td colspan="7">
                                             <p class="text-center">No Order Found!</p>
                                         </td>
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

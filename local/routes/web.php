@@ -68,6 +68,7 @@ Route::group(['middleware' =>['auth']], function(){
 		Route::resource('/sub_category', 'Admin\SubCategoryController')->middleware('admin');
 
 		Route::resource('/order', 'Admin\OrderController')->middleware('admin');
+		
 		Route::get('order/customer/autocomplete', 'Admin\OrderController@customerAutocomplete')->middleware('admin');
 		
 		
@@ -88,6 +89,9 @@ Route::group(['middleware' =>['auth']], function(){
 	Route::get('/mycart', 'MyCustomerController@mycart')->middleware('customer')->name('mycart');
 	Route::get('/checkout', 'MyCustomerController@checkout')->middleware('customer')->name('mycheckout');
 	Route::post('/place_order', 'MyCustomerController@place_order')->middleware('customer')->name('place_order');
+
+	Route::post('/rating', 'Theme\ThemeController@saveRating')->name('rating')->middleware('auth');
+	Route::get('/rating/delete/{id}', 'Theme\ThemeController@deleteRating')->name('deleteRating')->middleware('auth');
 });
 
 

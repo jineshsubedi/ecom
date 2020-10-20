@@ -28,12 +28,11 @@
                                 <thead class="bg-light text-capitalize">
                                     <tr>
                                         <th>Title</th>
-                                        <th>Slug</th>
                                         <th>Category</th>
                                         <th>Sub Category</th>
                                         <th>Price</th>
-                                        <th>Description</th>
                                         <th>Featured</th>
+                                        <th>New</th>
                                         <th>Visits</th>
                                         <th>Action</th>
                                     </tr>
@@ -42,12 +41,12 @@
                                     @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->title}}</td>                                    
-                                        <td>{{$product->slug}}</td>                                    
                                         <td>{{\App\Models\Category::getTitle($product->category_id)}}</td>                                    
                                         <td>{{\App\Models\SubCategory::getTitle($product->sub_category_id)}}</td>                                    
                                         <td>{{$product->price}}</td>                                   
-                                        <td>{!! str_limit($product->description, 100) !!}</td>  
+                                        <!-- <td>{!! str_limit($product->description, 100) !!}</td>   -->
                                         <td>{{$product->featured == 0 ? 'No' : 'Yes'}}</td>                                 
+                                        <td>{{$product->new == 0 ? 'No' : 'Yes'}}</td>                                 
                                         <td>{{$product->visits}}</td>                                 
 										<td>
 											<form method="post" action="{{route('product.destroy', $product->id)}}">

@@ -52,6 +52,9 @@ class ProductController extends Controller
             'description' => 'required',
             'featured' => 'required',
             'price' => 'required',
+            'new' => 'required',
+            'brand' => 'sometimes',
+            'inventory' => 'required',
             'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
         $data = [
@@ -62,6 +65,9 @@ class ProductController extends Controller
             'sub_category_id' => $request->sub_category_id,
             'description' => $request->description,
             'price' => $request->price,
+            'new' => $request->new,
+            'brand' => $request->brand,
+            'inventory' => $request->inventory,
         ];
         $product = Product::create($data);
 
@@ -131,6 +137,9 @@ class ProductController extends Controller
             'description' => 'required',
             'featured' => 'required',
             'price' => 'required',
+            'new' => 'required',
+            'brand' => 'sometimes',
+            'inventory' => 'required',
             'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
         ]);
 
@@ -142,6 +151,9 @@ class ProductController extends Controller
             'description' => $request->description,
             'featured' => $request->featured,
             'price' => $request->price,
+            'new' => $request->new,
+            'brand' => $request->brand,
+            'inventory' => $request->inventory,
         ];
         $product = Product::findOrFail($id)->update($data);
         if(isset($request->image))

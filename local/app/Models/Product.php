@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'category_id', 'sub_category_id', 'price', 'description', 'brand', 'visits', 'featured', 'new'
+        'title', 'slug', 'category_id', 'sub_category_id', 'price', 'description', 'brand', 'visits', 'featured', 'new', 'inventory'
     ];
 
     public static function getItemByProductId($id)

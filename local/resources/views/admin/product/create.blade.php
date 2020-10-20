@@ -21,7 +21,7 @@
         width:100%;
     }
     select.form-control:not([size]):not([multiple]) {
-        height: calc(2.25rem + 4px);
+        height: calc(2.25rem + 10px);
     }
 </style>
 @endsection
@@ -111,12 +111,48 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-form-label required">New</label>
+                            <select name="new" class="form-control" id="new">
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                            <div class="text-danger">
+                                @if ($errors->has('new'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('new') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-form-label required">Price</label>
                             <input type="text" name="price" class="form-control" placeholder="Product price" value="{{old('price')}}">
                             <div class="text-danger">
                                 @if ($errors->has('price'))
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $errors->first('price') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label required">Brand</label>
+                            <input type="text" name="brand" class="form-control" placeholder="Product brand" value="{{old('brand')}}">
+                            <div class="text-danger">
+                                @if ($errors->has('brand'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('brand') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label required">Inventory</label>
+                            <input type="text" name="inventory" class="form-control" placeholder="Product inventory" value="{{old('inventory')}}">
+                            <div class="text-danger">
+                                @if ($errors->has('inventory'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('inventory') }}</strong>
                                     </span>
                                 @endif
                             </div>

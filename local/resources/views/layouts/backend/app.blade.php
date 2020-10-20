@@ -14,10 +14,10 @@
 		                    <span></span>
 		                </div>
 		                <div class="search-box pull-left">
-		                    <form action="#">
+		                    <!-- <form action="#">
 		                        <input type="text" name="search" placeholder="Search..." required>
 		                        <i class="ti-search"></i>
-		                    </form>
+		                    </form> -->
 		                </div>
 		            </div>
 		            <!-- profile info & task notification -->
@@ -25,7 +25,7 @@
 		                <ul class="notification-area pull-right">
 		                    <li id="full-view"><i class="ti-fullscreen"></i></li>
 		                    <li id="full-view-exit"><i class="ti-zoom-out"></i></li>
-		                    <li class="dropdown">
+		                    <!-- <li class="dropdown">
 		                        <i class="ti-bell dropdown-toggle" data-toggle="dropdown">
 		                            <span>2</span>
 		                        </i>
@@ -83,82 +83,24 @@
 		                                </a>
 		                            </div>
 		                        </div>
-		                    </li>
+		                    </li> -->
 		                    <li class="dropdown">
-		                        <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>3</span></i>
+		                        <i class="fa fa-bell dropdown-toggle" data-toggle="dropdown"><span>{{count(auth()->user()->notifications)}}</span></i>
 		                        <div class="dropdown-menu notify-box nt-enveloper-box">
-		                            <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+		                            <span class="notify-title">You have {{count(auth()->user()->notifications)}} new notifications <a href="#">view all</a></span>
 		                            <div class="nofity-list">
-		                                <a href="#" class="notify-item">
+		                            	@foreach(auth()->user()->notifications as $notification)
+		                                <a href="{{route('order.show', $notification->data['order_id'])}}" class="notify-item">
 		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img1.jpg" alt="image">
+		                                        <img src="{{url($notification->data['customer_photo'])}}" alt="image">
 		                                    </div>
 		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">Hey I am waiting for you...</span>
-		                                        <span>3:15 PM</span>
+		                                        <p>{{$notification->data['customer_name']}}</p>
+		                                        <span class="msg">{{$notification->data['message']}}</span>
+		                                        <span>{{$notification->data['order_date']}}</span>
 		                                    </div>
 		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img2.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">When you can connect with me...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img3.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">I missed you so much...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img4.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">Your product is completely Ready...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img2.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">Hey I am waiting for you...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img1.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">Hey I am waiting for you...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
-		                                <a href="#" class="notify-item">
-		                                    <div class="notify-thumb">
-		                                        <img src="assets/images/author/author-img3.jpg" alt="image">
-		                                    </div>
-		                                    <div class="notify-text">
-		                                        <p>Aglae Mayer</p>
-		                                        <span class="msg">Hey I am waiting for you...</span>
-		                                        <span>3:15 PM</span>
-		                                    </div>
-		                                </a>
+		                                @endforeach		                            
 		                            </div>
 		                        </div>
 		                    </li>

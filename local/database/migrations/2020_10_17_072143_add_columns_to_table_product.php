@@ -16,6 +16,7 @@ class AddColumnsToTableProduct extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->string('brand')->after('description')->nullable();
             $table->boolean('new')->default(0)->after('featured')->nullable();
+            $table->integer('inventory')->default(0)->after('new')->nullable();
         });
     }
 
@@ -29,6 +30,7 @@ class AddColumnsToTableProduct extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('brand');
             $table->dropColumn('new');
+            $table->dropColumn('inventory');
         });
     }
 }

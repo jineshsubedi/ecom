@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use App\Models\User;
 use App\Models\Cart;
 use App\Models\Order;
 use App\Models\Product;
@@ -11,6 +12,7 @@ use App\Models\CustomerAddress;
 use App\Models\OrderItem;
 use App\Models\ProductAttachment;
 use Illuminate\Http\Request;
+use App\Notifications\OrderNotification;
 
 class MyCustomerController extends Controller
 {
@@ -182,6 +184,8 @@ class MyCustomerController extends Controller
                 OrderItem::create($orderItemData);
                 $c->delete();
             }
+            $user = User::find(1);
+            $user->notify(new OrderNotification($order));
             DB::commit();
         }catch (\Exception $e) {
             DB::rollback();
@@ -189,6 +193,6 @@ class MyCustomerController extends Controller
             return redirect()->back();
         }
         alert()->success('Success', 'Thank you! Your order has been placed!');
-        return redirect()->route('mycustomer.index');
+        return redirect()->route('myorder');
     }
 }

@@ -45,18 +45,28 @@ class ThemeController extends Controller
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
         $products = Product::orderBy('id', 'desc')
             ->with('product_attachment')
-            ->paginate(3);
+            ->paginate(30);
+        $products->map(function($product){
+            $product['rate'] = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
+            return $product;
+        });
     	return view('theme.shop', compact('categories', 'products'));
     }
     public function shop_detail($id)
     {
+        $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
+        $recomended_products =array_chunk($recomended_products, 3);
+
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
         $product = Product::where('slug', $id)
             ->orderBy('id', 'desc')
             ->with('product_attachments','product_attachment')
             ->first();
+
+        $ratings = \App\Models\Rating::where('product_id', $product->id)->orderBy('id', 'desc')->get();
+        $avg_rating = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
         // return $product;
-    	return view('theme.shop_detail', compact('product', 'categories'));
+    	return view('theme.shop_detail', compact('product', 'categories', 'recomended_products', 'avg_rating', 'ratings'));
     }
     public function cart()
     {
@@ -162,5 +172,35 @@ class ThemeController extends Controller
         $category = \App\Models\Category::findOrFail($request->category_id);
         $sub_category = \App\Models\SubCategory::where('category_id', $category->id)->orderBy('title', 'asc')->get();
         return $sub_category;
+    }
+    public function saveRating(Request $request)
+    {
+        $this->validate($request, [
+            'product_id' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'description' => 'required',
+            'rate' => 'required',
+        ],[
+            'rate.required' => 'You must Rate this product',
+        ]);
+
+        $data = [
+            'product_id' => $request->product_id,
+            'user_id' => auth()->user()->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'description' => nl2br($request->description),
+            'rate' => $request->rate,
+        ];
+        \App\Models\Rating::create($data);
+        alert()->success('Success', 'You have rate this product!');
+        return redirect()->back();
+    }
+    public function deleteRating($id)
+    {
+        \App\Models\Rating::find($id)->delete();
+        alert()->success('Success', 'You have deleted your review');
+        return redirect()->back();
     }
 }

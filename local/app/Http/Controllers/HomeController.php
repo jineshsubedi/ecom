@@ -6,6 +6,7 @@ use Auth;
 use File;
 use SweetAlert;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -33,6 +34,9 @@ class HomeController extends Controller
         $data['countProduct'] = Product::count();
         $data['countCustomer'] = User::where('role', 'customer')->count();
         $data['countCategory'] = Category::count();
+        $data['countOrder'] = Order::count();
+
+        $data['orders'] = Order::get();
         
         return view('admin/dashboard')->with('data', $data);
     }

@@ -80,6 +80,7 @@
                 </a>
             </div>
             <div class="col-md-8">
+
                 @if(count($recomended_products) > 0)
                     <div class="recommended_items"><!--recommended_items-->
                         <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
