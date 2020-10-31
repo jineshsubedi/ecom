@@ -29,7 +29,7 @@
     }
 </style>
 <div class="rating">
-    <div class="rating-upper" style="width: 0%" id="rating-upper{{$product_id}}">
+    <div class="rating-upper" style="width: 0%" id="rating-{{$type}}-upper{{$product_id}}">
         <span>★</span>
         <span>★</span>
         <span>★</span>
@@ -48,10 +48,11 @@
 <script src="{{asset('theme/js/rating.js')}}"></script>
 <script>
     var id = '{{$product_id}}'
+    var type = '{{$type}}'
     var avg_rating = '{{$avg_rating}}';
     var percentage = (avg_rating/5)*100;
     percentage.toFixed(2);
-    $("#rating-upper"+id).css({
+    $("#rating-"+type+"-upper"+id).css({
         width: percentage+"%"
     });
 </script>

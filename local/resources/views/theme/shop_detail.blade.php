@@ -23,7 +23,7 @@
                                 <img src="images/product-details/new.jpg" class="newarrival" alt="" />
                                 <h2>{{$product->title}}</h2>
                                 
-                                @include('/theme/common/rating_display', ['avg_rating' => $avg_rating, 'product_id'=> $product->id])
+                                @include('/theme/common/rating_display', ['avg_rating' => $avg_rating, 'product_id'=> $product->id, 'type' => 'products'])
 
                                 <form action="{{route('add_to_cart')}}" method="post">
                                 @csrf
@@ -150,7 +150,7 @@
                                                     <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
                                                     <h2>{{$p['price']}}</h2>
                                                     <p>{{$p['title']}}</p>
-                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id']])</p>
+                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id'], 'type' => 'recomended_product'])</p>
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>

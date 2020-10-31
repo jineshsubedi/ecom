@@ -32,7 +32,7 @@
                                                 <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                                 <h2>Rs. {{$product->price}}</h2>
                                                 <p>{{$product->title}}</p>
-                                                <p>@include('/theme/common/rating_display', ['avg_rating' => $product->rate, 'product_id' => $product->id])</p>
+                                                <p>@include('/theme/common/rating_display', ['avg_rating' => $product->rate, 'product_id' => $product->id, 'type' => 'products'])</p>
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                             <div class="product-overlay">

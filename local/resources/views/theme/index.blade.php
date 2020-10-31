@@ -70,7 +70,7 @@
                                                     <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
                                                     <h2>{{$p['price']}}</h2>
                                                     <p>{{$p['title']}}</p>
-                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id']])</p>
+                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id'], 'type' => 'recomended_product'])</p>
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
@@ -119,7 +119,7 @@
                                             <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                             <h2>Rs {{$product->price}}</h2>
                                             <p>{{$product->title}}</p>
-                                            <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id])</p>
+                                            <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id, 'type' => 'new_product'])</p>
                                             <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <div class="product-overlay">
@@ -152,7 +152,7 @@
                                             <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                             <h2>Rs {{$product->price}}</h2>
                                             <p>{{$product->title}}</p>
-                                            <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id])</p>
+                                            <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id, 'type' => 'featured_product'])</p>
                                             <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
                                         <div class="product-overlay">
@@ -194,7 +194,7 @@
                                                 <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                                 <h2>Rs. {{$product->price}}</h2>
                                                 <p>{{$product->title}}</p>
-                                                <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id])</p>
+                                                <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id, 'type' => 'category_product'])</p>
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
@@ -227,7 +227,7 @@
                                                     <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
                                                     <h2>{{$p['price']}}</h2>
                                                     <p>{{$p['title']}}</p>
-                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id']])</p>
+                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id'], 'type' => 'recomended_two_product'])</p>
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
