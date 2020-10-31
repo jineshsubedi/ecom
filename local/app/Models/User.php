@@ -44,6 +44,6 @@ class User extends Authenticatable
                 return 'images/'.$data->image;
             }
         }
-        return 'theme/images/no-img.jpg';
+        return '/theme/images/no-img.jpg';
     }
 }

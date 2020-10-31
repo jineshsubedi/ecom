@@ -23,31 +23,30 @@
                 <div class="col-sm-2">
                     <div class="single-widget">
                         <h2>Policies</h2>
+                        @php($pages = \App\Models\Page::getFooterPages())
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Terms of Use</a></li>
-                            <li><a href="#">Privecy Policy</a></li>
-                            <li><a href="#">Refund Policy</a></li>
-                            <li><a href="#">Billing System</a></li>
-                            <li><a href="#">Ticket System</a></li>
+                            @foreach($pages as $page)
+                            <li><a href="{{url('page/'.$page->slug)}}">{{$page->title}}</a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <div class="single-widget">
-                        <h2>About Shopper</h2>
+                        <h2>Follow us</h2>
                         <ul class="nav nav-pills nav-stacked">
-                            <li><a href="#">Company Information</a></li>
-                            <li><a href="#">Careers</a></li>
-                            <li><a href="#">Store Location</a></li>
-                            <li><a href="#">Affillate Program</a></li>
-                            <li><a href="#">Copyright</a></li>
+                            <li><a href="#">Facebook </a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Twitter</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-3 col-sm-offset-1">
                     <div class="single-widget">
                         <h2>{{\App\Models\Setting::getName()}}</h2>
-                        <p>{{\App\Models\Setting::getSubName()}}</p>
+                        <p>
+                            <div class="fb-page" data-href="https://www.facebook.com/jineshcast" data-tabs="" data-width="" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/jineshcast" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jineshcast">Jineshsubedi.com.np</a></blockquote></div>
+                        </p>
                     </div>
                 </div>
                 
@@ -63,7 +62,8 @@
         </div>
     </div>
 </footer><!--/Footer-->
-  
+ <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v8.0&appId=1868322490092491&autoLogAppEvents=1" nonce="OhfUoG89"></script> 
 <script src="{{asset('theme/js/jquery.js')}}"></script>
 <script src="{{asset('theme/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('theme/js/jquery.scrollUp.min.js')}}"></script>

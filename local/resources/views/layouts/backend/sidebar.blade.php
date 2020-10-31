@@ -53,6 +53,9 @@
                             <li @if(Request::segment(2)=='message' ) class="active" @endif>
                                 <a href="{{route('message.index')}}" aria-expanded="false"><i class="ti-comment-alt"></i><span>Messages</span></a>
                             </li>
+                            <li @if(Request::segment(2)=='page' ) class="active" @endif>
+                                <a href="{{route('page.index')}}" aria-expanded="false"><i class="fa fa-image"></i><span>Page</span></a>
+                            </li>
                         @else
                             <li @if(Request::segment(1)=='home' ) class="active" @endif>
                                 <a href="{{route('mycustomer.index')}}" aria-expanded="false"><i class="ti-dashboard"></i><span>Dashboard</span></a>

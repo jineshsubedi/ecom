@@ -119,9 +119,9 @@ class SliderController extends Controller
             $image = 'slider/'.Str::random(10).strtolower($file->GetClientOriginalName());
             $file->move(DIR_IMAGE.'/slider/',$image);
 
-            if(isset($blog->image)){
-                if(File::exists(DIR_IMAGE.$blog->image)) {
-                    File::delete(DIR_IMAGE.$blog->image);
+            if(isset($slider->image)){
+                if(File::exists(DIR_IMAGE.$slider->image)) {
+                    File::delete(DIR_IMAGE.$slider->image);
                 }
             }
         }

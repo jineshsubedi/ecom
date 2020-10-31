@@ -17,7 +17,6 @@
 
 Route::group(['middleware' => ['web']], function(){
 	Route::get('/', 'Theme\ThemeController@index');
-	Route::get('/about-us', 'Theme\ThemeController@about_us');
 	Route::get('/contact-us', 'Theme\ThemeController@contact_us');
 	Route::post('/contact-us/send_message', 'Theme\ThemeController@send_message')->name('send_message');
 
@@ -25,6 +24,8 @@ Route::group(['middleware' => ['web']], function(){
 
 	Route::get('/shop', 'Theme\ThemeController@shop');
 	Route::get('/shop/{id}', 'Theme\ThemeController@shop_detail');
+
+	Route::get('/page/{slug}', 'Theme\ThemeController@page');
 
 	Route::get('/cart', 'Theme\ThemeController@cart')->name('mycart')->middleware('auth');
 	Route::post('/cart/removeItem', 'Theme\ThemeController@cartRemoveItem')->name('cartRemoveItem')->middleware('auth');
@@ -54,6 +55,8 @@ Route::group(['middleware' =>['auth']], function(){
 		Route::resource('/blog', 'Admin\BlogController')->middleware('admin');
 
 		Route::resource('/slider', 'Admin\SliderController')->middleware('admin');
+
+		Route::resource('/page', 'Admin\PageController')->middleware('admin');
 
 		Route::resource('/user', 'Admin\UserController')->middleware('admin');
 

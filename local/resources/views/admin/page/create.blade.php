@@ -2,7 +2,7 @@
 @section('breadcrums')
 <div class="breadcrumbs-area clearfix">
     <ul class="breadcrumbs pull-left">
-        <li><a href="{{route('slider.index')}}">Slider</a></li>
+        <li><a href="{{route('page.index')}}">Page</a></li>
         <li><span>Create</span></li>
     </ul>
 </div>
@@ -33,9 +33,9 @@
         	<div class="col-12 mt-5">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="header-title">Create Slider</h4>
-                        <p class="text-muted font-14 mb-4">Add detail to Slider</p>
-                        <form method="post" action="{{route('slider.store')}}" enctype="multipart/form-data">
+                        <h4 class="header-title">Create A Page</h4>
+                        <p class="text-muted font-14 mb-4">Add detail to Page</p>
+                        <form method="post" action="{{route('page.store')}}" enctype="multipart/form-data">
                             @csrf
                         
                         <div class="form-group">
@@ -50,23 +50,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="example-text-input" class="col-form-label">Sub Title</label>
-                            <input class="form-control" name="sub_title" type="text" value="{{old('sub_title')}}" id="example-title-input">
+                            <label for="example-text-input" class="col-form-label">Slug</label>
+                            <input class="form-control" name="slug" type="text" value="{{old('slug')}}" id="example-slug-input">
                             <div class="text-danger">
-                                @if ($errors->has('sub_title'))
+                                @if ($errors->has('slug'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('sub_title') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="example-email-input" class="col-form-label">Link Url</label>
-                            <input class="form-control" name="url" type="url" value="{{old('url')}}" id="example-url-input">
-                            <div class="text-danger">
-                                @if ($errors->has('url'))
-                                    <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('url') }}</strong>
+                                        <strong>{{ $errors->first('slug') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -83,12 +72,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="example-datetime-local-input" class="col-form-label">Image</label>
-                            <input class="form-control" name="image" type="file" id="image">
+                            <label for="example-datetime-local-input" class="col-form-label">Banner</label>
+                            <input class="form-control" name="banner" type="file" id="banner">
                             <div class="text-danger">
-                                @if ($errors->has('image'))
+                                @if ($errors->has('banner'))
                                     <span class="text-danger" role="alert">
-                                        <strong>{{ $errors->first('image') }}</strong>
+                                        <strong>{{ $errors->first('banner') }}</strong>
                                     </span>
                                 @endif
                             </div>

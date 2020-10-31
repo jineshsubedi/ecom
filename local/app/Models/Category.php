@@ -29,4 +29,9 @@ class Category extends Model
     {
         return $this->hasMany('\App\Models\SubCategory', 'category_id');
     }
+    public static function getFeaturedCats()
+    {
+        $data = Category::where('featured', 1)->where('image', '!=', NULL)->get();
+        return $data;
+    }
 }

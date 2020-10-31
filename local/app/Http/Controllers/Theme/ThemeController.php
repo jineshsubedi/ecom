@@ -7,6 +7,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\Cart;
+use App\Models\Page;
 use App\Models\Item;
 use App\Models\Slider;
 use App\Models\Product;
@@ -23,6 +24,7 @@ class ThemeController extends Controller
         $new_products = Product::where('new', 1)->with('product_attachment')->limit(6)->get();
         $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
         $recomended_products =array_chunk($recomended_products, 3);
+        
         $featured_categories = Category::where('featured', 1)->orderBy('title', 'asc')->get();
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
@@ -32,10 +34,6 @@ class ThemeController extends Controller
     	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories', 'new_products', 'sliders'));
     }
 
-    public function about_us()
-    {
-    	return view('theme.about');
-    }
     public function contact_us()
     {
     	return view('theme.contact');
@@ -202,5 +200,11 @@ class ThemeController extends Controller
         \App\Models\Rating::find($id)->delete();
         alert()->success('Success', 'You have deleted your review');
         return redirect()->back();
+    }
+
+    public function page($slug)
+    {
+        $page = Page::where('slug', $slug)->first();
+        return view('theme.about', compact('page'));
     }
 }

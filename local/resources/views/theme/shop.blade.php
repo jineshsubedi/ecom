@@ -6,7 +6,8 @@
         <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="bjhghf" />
     </div>
 </section>
-
+@include('theme.common.featured_category_box')
+<br><br><br>
 <!-- Start Shop Page  -->
 <section>
         <div class="container">
