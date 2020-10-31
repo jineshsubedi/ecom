@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>{{ config('app.name') }} - {{ config('app.sub_name') }}</title>
+    <title>{{ \App\Models\Setting::getName() ? \App\Models\Setting::getName() :config('app.name', 'Laravel') }}</title>
     <link href="{{asset('theme/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{asset('theme/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('theme/css/prettyPhoto.css')}}" rel="stylesheet">

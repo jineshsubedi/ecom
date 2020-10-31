@@ -150,6 +150,7 @@
                                                     <img src="{{asset('images/'.\App\Models\Product::getAttachmentFromId($p['id']))}}" alt="" />
                                                     <h2>{{$p['price']}}</h2>
                                                     <p>{{$p['title']}}</p>
+                                                    <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($p['id']), 'product_id' => $p['id']])</p>
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>

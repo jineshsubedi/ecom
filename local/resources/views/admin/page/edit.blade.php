@@ -88,9 +88,9 @@
                         </div>
                         <div class="form-group">
                             <label for="example-datetime-local-input" class="col-form-label">Image</label>
-                            <input class="form-control" name="image" type="file" id="image">
-                            @if($page->image)
-                                <img src="{{asset('images/'.$page->image)}}" alt="page image" width="100px;">
+                            <input class="form-control" name="banner" type="file" id="image">
+                            @if($page->banner)
+                                <img src="{{asset('images/'.$page->banner)}}" alt="page image" width="100px;">
                             @endif
                             <div class="text-danger">
                                 @if ($errors->has('image'))

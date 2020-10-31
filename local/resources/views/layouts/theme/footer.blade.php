@@ -44,9 +44,7 @@
                 <div class="col-sm-3 col-sm-offset-1">
                     <div class="single-widget">
                         <h2>{{\App\Models\Setting::getName()}}</h2>
-                        <p>
-                            <div class="fb-page" data-href="https://www.facebook.com/jineshcast" data-tabs="" data-width="" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/jineshcast" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jineshcast">Jineshsubedi.com.np</a></blockquote></div>
-                        </p>
+                        <div class="fb-page" data-href="https://www.facebook.com/jineshcast" data-tabs="" data-width="" data-height="" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/jineshcast" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/jineshcast">Jineshsubedi.com.np</a></blockquote></div>
                     </div>
                 </div>
                 
