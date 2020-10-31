@@ -10,13 +10,15 @@
                     <div class="col-md-8 clearfix">
                         <div class="shop-menu clearfix pull-right">
                             <ul class="nav navbar-nav">
+                                <li><a href="{{url('/')}}"><i class="fa fa-home"></i> Home</a></li>
+                                <li><a href="{{url('/shop')}}"><i class="fa fa-shopping-bag"></i> Shop</a></li>
                                 @auth
                                 @if(auth()->user()->role=='customer')
                                 <li><a href="{{route('mycustomer.index')}}"><i class="fa fa-user"></i> Account</a></li>
                                 @else 
                                 <li><a href="{{route('home')}}"><i class="fa fa-user"></i> Account</a></li>
                                 @endif
-                                <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="{{route('wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
                                 <li><a href="{{route('mycheckout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li><a href="{{route('mycart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 @endauth
@@ -30,8 +32,9 @@
             </div>
         </div>
         <!--/header-middle-->
+        <!-- group accessible -->
+        <!--
         <div class="header-bottom">
-            <!--header-bottom-->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
@@ -59,11 +62,6 @@
                             </ul>
                         </div>
                     </div>
-                    <!-- <div class="col-sm-3">
-                        <div class="search_box pull-right">
-                            <input type="text" placeholder="Search" />
-                        </div>
-                    </div> -->
                 </div>
             </div>
-        </div>
+        </div> -->

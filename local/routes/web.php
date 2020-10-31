@@ -95,6 +95,9 @@ Route::group(['middleware' =>['auth']], function(){
 
 	Route::post('/rating', 'Theme\ThemeController@saveRating')->name('rating')->middleware('auth');
 	Route::get('/rating/delete/{id}', 'Theme\ThemeController@deleteRating')->name('deleteRating')->middleware('auth');
+
+	Route::get('/wishlist', 'MyCustomerController@wishlist')->name('wishlist')->middleware('customer');
+	Route::post('/wishlist_action', 'MyCustomerController@wishlist_action')->name('wishlist_action')->middleware('customer');
 });
 
 

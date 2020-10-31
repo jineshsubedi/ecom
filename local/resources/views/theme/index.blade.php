@@ -74,12 +74,7 @@
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
-                                            <div class="choose">
-                                                <ul class="nav nav-pills nav-justified">
-                                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                                </ul>
-                                            </div>
-
+                                            @include('theme/common/wishlist_action', ['product' => $p['id']])
                                         </div>
                                     </div>
                                     @endforeach
@@ -130,11 +125,7 @@
                                             </div>
                                         </div>
                                 </div>
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    </ul>
-                                </div>
+                                @include('theme/common/wishlist_action', ['product' => $product->id])
                             </div>
                         </div>
                         @endforeach
@@ -163,11 +154,7 @@
                                             </div>
                                         </div>
                                 </div>
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                    </ul>
-                                </div>
+                                @include('theme/common/wishlist_action', ['product' => $product->id])
                             </div>
                         </div>
                         @endforeach
@@ -198,11 +185,7 @@
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
                                         </div>
-                                        <div class="choose">
-                                            <ul class="nav nav-pills nav-justified">
-                                                <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                            </ul>
-                                        </div>
+                                        @include('theme/common/wishlist_action', ['product' => $product->id])
                                     </div>
                                 </div>
                                 @endforeach
@@ -231,11 +214,7 @@
                                                     <a href="{{url('shop/'.$p['slug'])}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                                 </div>
                                             </div>
-                                            <div class="choose">
-                                                <ul class="nav nav-pills nav-justified">
-                                                    <li><a href="#"><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                                </ul>
-                                            </div>
+                                            @include('theme/common/wishlist_action', ['product' => $p['id']])
 
                                         </div>
                                     </div>

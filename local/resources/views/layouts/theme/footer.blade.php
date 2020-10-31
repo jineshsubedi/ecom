@@ -67,6 +67,50 @@
 <script src="{{asset('theme/js/jquery.scrollUp.min.js')}}"></script>
 <script src="{{asset('theme/js/price-range.js')}}"></script>
 <script src="{{asset('theme/js/jquery.prettyPhoto.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{asset('theme/js/main.js')}}"></script>
+<script type="text/javascript">
+    var token = $('input[name=\'_token\']').val();
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    function wishlistAction(product)
+    {
+        $.ajax({
+            url: "{{route('wishlist_action')}}",
+            type: 'post',
+            data:{
+                _token : token,
+                product_id : product
+            },
+            dataType: 'JSON',
+            success:function(data){
+                console.log(data)
+                if(data.action == 'add')
+                {
+                    $('.product_wish_add_'+product).hide();
+                    $('.product_wish_remove_'+product).show();
+                }
+                if(data.action == 'remove')
+                {
+                    $('.product_wish_add_'+product).show();
+                    $('.product_wish_remove_'+product).hide();
+                }
+                swal({
+                  title: "Success!",
+                  text: data.message,
+                  icon: "success",
+                  button: "OK",
+                });
+            },
+            error:function(error)
+            {
+                console.log(error.responseJSON)
+            }
+        });
+    }
+</script>
 </body>
 </html>

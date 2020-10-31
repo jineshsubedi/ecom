@@ -96,6 +96,9 @@
                             <li @if(Request::segment(1)=='myorder' ) class="active" @endif>
                                 <a href="{{route('myorder')}}" aria-expanded="false"><i class="ti-shopping-cart"></i><span>My Order</span></a>
                             </li>
+                            <li @if(Request::segment(1)=='wishlist' ) class="active" @endif>
+                                <a href="{{route('wishlist')}}" aria-expanded="false"><i class="ti-check-box"></i><span>My Wishlist</span></a>
+                            </li>
                         @endif
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

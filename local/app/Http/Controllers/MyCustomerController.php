@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\CustomerAddress;
 use App\Models\OrderItem;
+use App\Models\Wishlist;
 use App\Models\ProductAttachment;
 use Illuminate\Http\Request;
 use App\Notifications\OrderNotification;
@@ -194,5 +195,35 @@ class MyCustomerController extends Controller
         }
         alert()->success('Success', 'Thank you! Your order has been placed!');
         return redirect()->route('myorder');
+    }
+
+    public function wishlist(Request $request)
+    {
+        $wishlists = Wishlist::where('customer_id', Auth::user()->id)->paginate(50);
+        return view('admin.wishlist.index', compact('wishlists'));
+    }
+    public function wishlist_action(Request $request)
+    {
+        $wishlist = Wishlist::where('customer_id', Auth::user()->id)->where('product_id', $request->product_id)->first();
+        if(isset($wishlist->id))
+        {
+            $wishlist->delete();
+            $response = [
+                'message' => 'Product Removed From Wishlist!',
+                'action' => 'remove'
+            ];
+            return $response;
+        }else{
+            $data = [
+                'customer_id' => Auth::user()->id,
+                'product_id' => $request->product_id
+            ];
+            Wishlist::create($data);
+            $response = [
+                'message' => 'Product Wishlisted SUccessfully!',
+                'action' => 'add'
+            ];
+            return $response;
+        }
     }
 }

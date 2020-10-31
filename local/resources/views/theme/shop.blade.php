@@ -44,11 +44,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="choose">
-                                            <ul class="nav nav-pills nav-justified">
-                                                <li><a href=""><i class="fa fa-plus-square"></i>Add to wishlist</a></li>
-                                            </ul>
-                                        </div>
+                                        @include('theme/common/wishlist_action', ['product' => $product->id])
                                     </div>
                                 </div>
                                 @endforeach

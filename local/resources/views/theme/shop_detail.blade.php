@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
 <section>
     <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+              <li><a href="{{url('/shop')}}">Shop</a></li>
+              <li class="active">{{$product->title}}</li>
+            </ol>
+        </div>
         <div class="row">
             <div class="col-sm-3">
                 @include('theme/common/left_sidebar', ['categories' => $categories])
@@ -16,7 +22,9 @@
                         <!--product-details-->
                         <div class="col-sm-5">
                             @include('/theme/common/product_maginifier', ['product' => $product])
+                            @include('theme/common/wishlist_action', ['product' => $product->id])
                         </div>
+
                         <div class="col-sm-7">
                             <div class="product-information">
                                 <!--/product-information-->
@@ -38,6 +46,7 @@
                                         Add to cart
                                     </button>
                                 </span>
+
                                 </form>
                                 <p><b>Availability:</b> @if($product->inventory > 0) In Stock ({{$product->inventory}}) @else <span class="text-danger">Out of stock!</span> @endif</p>
                                 @if($product->new == 1)
@@ -170,7 +179,7 @@
                     </div><!--/recommended_items-->
                     @endif
                     <!--/recommended_items-->
-                </div>
+            </div>
         </div>
     </div>
 </section>
