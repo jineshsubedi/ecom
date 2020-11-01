@@ -217,9 +217,11 @@ class ThemeController extends Controller
         $data['category']->map(function($category){
             $category['total_product'] = Category::countProduct($category->id);
             $category['total_sub_category'] = Category::getSubCategory($category->id);
+            $category['product'] = Product::where('category_id', $category->id)->orderBy('visits', 'desc')->limit(12)->get()->toArray();
+            $category['product'] = array_chunk($category['product'], 4);
             return $category;
         });
-        // return $data;
+        // return $data['category'];
         return view('theme.group')->with('data', $data);
 
     }

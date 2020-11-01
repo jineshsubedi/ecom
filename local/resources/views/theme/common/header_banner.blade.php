@@ -8,7 +8,7 @@
 	}
 	.img1 { background-image: url("{{asset('images/'.$image)}}"); }
 </style>
-<div class="container" style="height: 400px">
+<div class="container">
 	<div class="bg-image img1">
 	    <div class="breadcrumbs">
 	        <ol class="breadcrumb">
