@@ -9,6 +9,7 @@ use App\Models\Blog;
 use App\Models\Cart;
 use App\Models\Page;
 use App\Models\Item;
+use App\Models\Group;
 use App\Models\Slider;
 use App\Models\Product;
 use App\Models\Category;
@@ -206,5 +207,20 @@ class ThemeController extends Controller
     {
         $page = Page::where('slug', $slug)->first();
         return view('theme.about', compact('page'));
+    }
+
+    public function group($slug)
+    {
+        $data['group'] = Group::where('slug', $slug)->first();
+        $items = $data['group']->category != NULL ? json_decode($data['group']->category) : [0];
+        $data['category'] = Category::whereIn('id', $items)->paginate(30);
+        $data['category']->map(function($category){
+            $category['total_product'] = Category::countProduct($category->id);
+            $category['total_sub_category'] = Category::getSubCategory($category->id);
+            return $category;
+        });
+        // return $data;
+        return view('theme.group')->with('data', $data);
+
     }
 }

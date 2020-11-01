@@ -22,7 +22,7 @@ class Category extends Model
 
     public function product()
     {
-        return $this->hasMany('\App\Models\Product', 'category_id')->take(12);
+        return $this->hasMany('\App\Models\Product', 'category_id')->take(20);
     }
 
     public function sub_category()
@@ -33,5 +33,13 @@ class Category extends Model
     {
         $data = Category::where('featured', 1)->where('image', '!=', NULL)->get();
         return $data;
+    }
+    public static function countProduct($id)
+    {
+        return \App\Models\Product::where('category_id', $id)->count();
+    }
+    public static function getSubCategory($id)
+    {
+        return \App\Models\SubCategory::where('category_id', $id)->get();
     }
 }

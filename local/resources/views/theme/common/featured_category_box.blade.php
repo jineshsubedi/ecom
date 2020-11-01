@@ -1,6 +1,6 @@
 @php($featured_cats = \App\Models\Category::getFeaturedCats())
 @php($count = count($featured_cats))
-@if($count > 0)
+@if($count > 0) 
     <section id="featured_section">
         <div class="container">
             <h2 class="title text-center">Featured Category</h2>

@@ -27,6 +27,8 @@ Route::group(['middleware' => ['web']], function(){
 
 	Route::get('/page/{slug}', 'Theme\ThemeController@page');
 
+	Route::get('/group/{slug}', 'Theme\ThemeController@group');
+
 	Route::get('/cart', 'Theme\ThemeController@cart')->name('mycart')->middleware('auth');
 	Route::post('/cart/removeItem', 'Theme\ThemeController@cartRemoveItem')->name('cartRemoveItem')->middleware('auth');
 	Route::post('/cart/updateCart', 'Theme\ThemeController@updateCart')->name('updateCart')->middleware('auth');
