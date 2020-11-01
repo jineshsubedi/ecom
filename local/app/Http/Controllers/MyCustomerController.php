@@ -200,6 +200,14 @@ class MyCustomerController extends Controller
     public function wishlist(Request $request)
     {
         $wishlists = Wishlist::where('customer_id', Auth::user()->id)->paginate(50);
+        $wishlists->map(function($wish){
+            $wish['product_title'] = Product::getTitle($wish->product_id);
+            $wish['product_slug'] = Product::getSlug($wish->product_id);
+            $wish['product_price'] = Product::getProductPrice($wish->product_id);
+            $wish['product_inventory'] = Product::getProductInventory($wish->product_id);
+            $wish['product_image'] = Product::getAttachmentFromId($wish->product_id);
+            return $wish;
+        });
         return view('admin.wishlist.index', compact('wishlists'));
     }
     public function wishlist_action(Request $request)

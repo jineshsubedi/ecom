@@ -27,6 +27,17 @@ class Product extends Model
     		return 0.0;
     	}
     }
+    public static function getProductInventory($id)
+    {
+        $data = Product::find($id);
+        if($data)
+        {
+            return $data->inventory;
+        }
+        else{
+            return 0;
+        }
+    }
     public static function getTitle($id)
     {
         $data = Product::find($id);
@@ -77,6 +88,9 @@ class Product extends Model
     public static function getAttachmentFromId($id)
     {
         $data = Product::find($id);
-        return $data->product_attachment->file_name;
+        if(isset($data->id)){
+            return $data->product_attachment->file_name;
+        }
+        return '';
     }
 }

@@ -26,16 +26,22 @@
                             <table id="vendor_list" class="table table-bordered text-center">
                                 <thead class="bg-light text-capitalize">
                                     <tr>
-                                        <th colspan="2">Product</th>
-                                        <th>Action</th>
+                                        <th colspan="4">Product</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($wishlists as $wishlist)
                                     <tr>
-                                        <td></td>                               
-                                        <td></td>                               
-										<td></td>                           	
+                                        <td><img src="{{asset('images/'.$wishlist->product_image)}}" style="width:100px;height:100px;object-fit: contain;"></td>                               
+                                        <td><a href="{{url('shop/'.$wishlist->product_slug)}}" target="_blank">{{$wishlist->product_title}}</a></td>                               
+                                        <td>Rs. {{$wishlist->product_price}} /-</td>                               
+										<td>
+                                            @if($wishlist->product_price > 0)
+                                            <span class="badge badge-success">{{'Available'}}</span>
+                                            @else 
+                                            <span class="badge badge-danger">{{'Out Of Stock'}}</span>
+                                            @endif
+                                        </td>                           	
                                     </tr>
                                     @endforeach
                                 </tbody>

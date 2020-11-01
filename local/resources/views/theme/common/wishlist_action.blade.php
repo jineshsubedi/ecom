@@ -1,6 +1,5 @@
 
 @auth
-
 @if(\App\Models\Wishlist::checkIsWishlist($product))
 <div class="choose product_wish_remove_{{$product}}">
     <ul class="nav nav-pills nav-justified">
