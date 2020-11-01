@@ -64,6 +64,9 @@
                                     <li @if(Request::segment(2)=='sub_category' ) class="active" @endif>
                                         <a href="{{route('sub_category.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Sub Category</span></a>
                                     </li>
+                                    <li @if(Request::segment(2)=='group' ) class="active" @endif>
+                                        <a href="{{route('group.index')}}" aria-expanded="false"><i class="ti-link"></i><span>Group</span></a>
+                                    </li>
                                     <li @if(Request::segment(2)=='product' ) class="active" @endif>
                                         <a href="{{route('product.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Product</span></a>
                                     </li>

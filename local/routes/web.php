@@ -58,6 +58,8 @@ Route::group(['middleware' =>['auth']], function(){
 
 		Route::resource('/page', 'Admin\PageController')->middleware('admin');
 
+		Route::resource('/group', 'Admin\GroupController')->middleware('admin');
+
 		Route::resource('/user', 'Admin\UserController')->middleware('admin');
 
 		Route::resource('/product', 'Admin\ProductController')->middleware('admin');

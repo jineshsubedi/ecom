@@ -33,7 +33,8 @@
         </div>
         <!--/header-middle-->
         <!-- group accessible -->
-        <!--
+        @php($groups = \App\Models\Group::getGroup())
+        @if(count($groups) > 0)
         <div class="header-bottom">
             <div class="container">
                 <div class="row">
@@ -48,20 +49,13 @@
                         </div>
                         <div class="mainmenu pull-left">
                             <ul class="nav navbar-nav collapse navbar-collapse">
-                                <li><a href="{{url('/')}}" class="">Home</a></li>
-                                <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="{{url('/shop')}}">Products</a></li>
-                                        @auth
-                                        <li><a href="{{url('/cart')}}">Cart</a></li>
-                                        <li><a href="{{url('/checkout')}}">Checkout</a></li>
-                                        @endauth
-                                    </ul>
-                                </li>
-                                <li><a href="{{url('/contact-us')}}">Contact</a></li>
+                                @foreach($groups as $group)
+                                <li><a href="{{url('group/'.$group->slug)}}" class="">{{ucwords($group->title)}}</a></li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div> 
+        @endif
