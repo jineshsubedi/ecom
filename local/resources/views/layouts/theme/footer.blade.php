@@ -107,7 +107,7 @@
             },
             error:function(error)
             {
-                console.log(error.responseJSON)
+                console.log(error)
             }
         });
     }

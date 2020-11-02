@@ -52,6 +52,8 @@
                                 @if(Request::segment(2)=='sub_category' ) class="active" @endif
                                 @if(Request::segment(2)=='product' ) class="active" @endif
                                 @if(Request::segment(2)=='order' ) class="active" @endif
+                                @if(Request::segment(2)=='group' ) class="active" @endif
+                                @if(Request::segment(2)=='channel' ) class="active" @endif
                                 >
                                 <a href="javascript:void(0)" aria-expanded="false"><i class="ti-palette"></i><span>CMS</span></a>
                                 <ul class="collapse" style="">
@@ -66,6 +68,9 @@
                                     </li>
                                     <li @if(Request::segment(2)=='group' ) class="active" @endif>
                                         <a href="{{route('group.index')}}" aria-expanded="false"><i class="ti-link"></i><span>Group</span></a>
+                                    </li>
+                                    <li @if(Request::segment(2)=='channel' ) class="active" @endif>
+                                        <a href="{{route('channel.index')}}" aria-expanded="false"><i class="ti-announcement"></i><span>Channel</span></a>
                                     </li>
                                     <li @if(Request::segment(2)=='product' ) class="active" @endif>
                                         <a href="{{route('product.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Product</span></a>

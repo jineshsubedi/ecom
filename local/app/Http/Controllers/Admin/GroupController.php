@@ -97,6 +97,11 @@ class GroupController extends Controller
     public function destroy($id)
     {
     	$group = Group::findOrFail($id);
+        if(isset($group->image)){
+            if(File::exists(DIR_IMAGE.$group->image)) {
+                File::delete(DIR_IMAGE.$group->image);
+            }
+        }
     	$group->delete();
     	alert()->success('Success', 'Group Deleted!');
         return redirect()->route('group.index');

@@ -9,6 +9,7 @@ body {
     font-family: 'Roboto', sans-serif;
     position: relative;
     font-weight: 400px;
+    background-color: #f9f8f8;
 }
 
 ul li {
@@ -220,9 +221,10 @@ a#scrollUp i {
 }
 
 .header-bottom {
-    padding-bottom: 30px;
-    padding-top: 30px;
+    padding-bottom: 5px;
+    padding-top: 10px;
     border-bottom: 1px solid #e4e4fb;
+    background-color: #1e1ecac7;
 }
 
 .navbar-collapse.collapse {
@@ -239,7 +241,7 @@ a#scrollUp i {
 }
 
 .mainmenu ul li a {
-    color: #696763;
+    color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 17px;
     font-weight: 300;

@@ -11,6 +11,7 @@ use App\Models\Page;
 use App\Models\Item;
 use App\Models\Group;
 use App\Models\Slider;
+use App\Models\Channel;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -30,9 +31,25 @@ class ThemeController extends Controller
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
 
+        $channels = Channel::whereDate('start_date','<=', Carbon::today()->format('Y-m-d'))->whereDate('end_date','>=', Carbon::today()->format('Y-m-d'))->where('status', 1)->get();
+        $channels->map(function($channel){
+            if($channel->product != NULL){
+                $product = json_decode($channel->product);
+                $channel['product'] = Product::whereIn('id', $product)->with('product_attachment')->get()->toArray();
+                if($channel->image != NULL){
+                    $channel['product'] =array_chunk($channel['product'], 3);
+                }else{
+                    $channel['product'] =array_chunk($channel['product'], 4);
+                }
+            }else{
+                $channel['product'] = [];
+            }
+            return $channel;
+        });
+
         $sliders = Slider::orderBy('id', 'desc')->where('active', 0)->get();
 
-    	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories', 'new_products', 'sliders'));
+    	return view('theme.index', compact('blogs', 'featured_products', 'categories', 'recomended_products', 'featured_categories', 'new_products', 'sliders', 'channels'));
     }
 
     public function contact_us()

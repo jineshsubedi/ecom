@@ -62,6 +62,8 @@ Route::group(['middleware' =>['auth']], function(){
 
 		Route::resource('/group', 'Admin\GroupController')->middleware('admin');
 
+		Route::resource('/channel', 'Admin\ChannelController')->middleware('admin');
+
 		Route::resource('/user', 'Admin\UserController')->middleware('admin');
 
 		Route::resource('/product', 'Admin\ProductController')->middleware('admin');
