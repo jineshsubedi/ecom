@@ -53,6 +53,7 @@
                                 <p><b>Condition:</b> New</p>
                                 @endif
                                 <p><b>Brand:</b> {{$product->brand}}</p>
+                                <p><b>Views:</b> {{$product->visits}}</p>
                                 @php($url = url('/shop/'.$product->slug))
                                 @include('/theme/common/share', ['url'=> $url])
 

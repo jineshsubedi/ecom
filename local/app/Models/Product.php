@@ -93,4 +93,13 @@ class Product extends Model
         }
         return '';
     }
+    public static function getProductTopBrand()
+    {
+        $brands = Product::where('inventory','>',0)->where('brand', '!=', NULL)->orderBy('visits', 'desc')->orderBy('featured', 'desc')->groupBy('brand')->pluck('brand');
+        return $brands;
+    }
+    public static function countProductByBrand($brand)
+    {
+        return Product::where('brand', $brand)->count();
+    }
 }

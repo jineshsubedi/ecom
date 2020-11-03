@@ -158,13 +158,13 @@
                                             <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id, 'type' => 'new_product'])</p>
                                             <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
-                                        <div class="product-overlay">
+                                        <!-- <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2>$56</h2>
                                                 <p>{{$product->title}}</p>
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                 </div>
                                 @include('theme/common/wishlist_action', ['product' => $product->id])
                             </div>
@@ -187,13 +187,13 @@
                                             <p>@include('/theme/common/rating_display', ['avg_rating' => \App\Models\Rating::avg_rate($product->id), 'product_id' => $product->id, 'type' => 'featured_product'])</p>
                                             <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                         </div>
-                                        <div class="product-overlay">
+                                        <!-- <div class="product-overlay">
                                             <div class="overlay-content">
                                                 <h2>$56</h2>
                                                 <p>{{$product->title}}</p>
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                 </div>
                                 @include('theme/common/wishlist_action', ['product' => $product->id])
                             </div>

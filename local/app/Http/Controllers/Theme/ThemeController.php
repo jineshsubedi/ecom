@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Theme;
 
 use DB;
 use Auth;
+use Session;
 use Carbon\Carbon;
 use App\Models\Blog;
 use App\Models\Cart;
@@ -14,6 +15,7 @@ use App\Models\Slider;
 use App\Models\Channel;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Models\ProductAttachment;
 use App\Http\Controllers\Controller;
@@ -56,12 +58,50 @@ class ThemeController extends Controller
     {
     	return view('theme.contact');
     }
-    public function shop()
+    public function shop(Request $request)
     {
         $categories = Category::orderBy('title', 'asc')->with('sub_category')->get();
-        $products = Product::orderBy('id', 'desc')
-            ->with('product_attachment')
-            ->paginate(30);
+
+        $products = Product::orderBy('id', 'desc');
+
+        $data['filter_category'] = '';
+        $data['filter_sub_category'] = '';
+        $data['filter_group'] = '';
+
+        $url = url('shop?');
+
+        if($request->filter_category){
+            $category = Category::where('slug', $request->filter_category)->first();
+            $products = $products->where('category_id', $category->id);
+            $data['filter_category'] = $request->filter_category;
+            $url .= '&filter_category='.$request->filter_category;
+        }
+        if($request->filter_sub_category){
+            $sub_category = SubCategory::where('slug', $request->filter_sub_category)->first();
+            $products = $products->where('sub_category_id', $sub_category->id);
+            $data['filter_sub_category'] = $request->filter_sub_category;
+            $url .= '&filter_sub_category='.$request->filter_sub_category;
+        }
+        if($request->filter_group){
+            $group = Group::where('slug', $request->filter_group)->first();
+            if($group->category != NULL){
+                $cats = json_decode($group->category);
+            }else{
+                $cats = [];
+            }
+            $products = $products->whereIn('category_id', $cats);
+            $data['filter_group'] = $request->filter_group;
+            $url .= '&filter_group='.$request->filter_group;
+        }
+        if($request->filter_brand){
+            $products = $products->where('brand', $request->filter_brand);
+            $data['filter_brand'] = $request->filter_brand;
+            $url .= '&filter_brand='.$request->filter_brand;
+        }
+
+        $products = $products->with('product_attachment')
+            ->paginate(30)->setPath($url);
+
         $products->map(function($product){
             $product['rate'] = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
             return $product;
@@ -78,6 +118,13 @@ class ThemeController extends Controller
             ->orderBy('id', 'desc')
             ->with('product_attachments','product_attachment')
             ->first();
+
+        $viewCounter = Session::get('viewed_pages', []);
+        if(!in_array($product->slug, $viewCounter)){
+            $product->increment('visits');
+            Session::push('viewed_pages', $product->slug);
+        }
+        // $product->increment('visits');
 
         $ratings = \App\Models\Rating::where('product_id', $product->id)->orderBy('id', 'desc')->get();
         $avg_rating = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
@@ -238,7 +285,6 @@ class ThemeController extends Controller
             $category['product'] = array_chunk($category['product'], 4);
             return $category;
         });
-        // return $data['category'];
         return view('theme.group')->with('data', $data);
 
     }

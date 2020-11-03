@@ -36,9 +36,9 @@
                             <div class="row">
                                 @foreach($category->total_sub_category as $sub_category)
                                 <div class="col-md-4" style="height: 150px;">
-                                    <a href="{{url('shop?filter_sub_category='.$category->slug)}}">
+                                    <a href="{{url('shop?filter_sub_category='.$sub_category->slug)}}">
                                     <div class="well">
-                                        {{$sub_category->title}}
+                                        {{$sub_category->title}} ({{\App\Models\SubCategory::countProductBySubCategory($sub_category->id)}})
                                     </div>
                                     </a>
                                 </div>

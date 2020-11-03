@@ -31,20 +31,19 @@
                             @endif
                             @endforeach
                         </div><!--/category-products-->
+                        @php($brands = \App\Models\Product::getProductTopBrand())
+                        @if(count($brands) > 0)
                         <div class="brands_products"><!--brands_products-->
                             <h2>Brands</h2>
                             <div class="brands-name">
-                                <ul class="nav nav-pills nav-stacked">
-                                    <li><a href="#"> <span class="pull-right">(50)</span>Acne</a></li>
-                                    <li><a href="#"> <span class="pull-right">(56)</span>Grüne Erde</a></li>
-                                    <li><a href="#"> <span class="pull-right">(27)</span>Albiro</a></li>
-                                    <li><a href="#"> <span class="pull-right">(32)</span>Ronhill</a></li>
-                                    <li><a href="#"> <span class="pull-right">(5)</span>Oddmolly</a></li>
-                                    <li><a href="#"> <span class="pull-right">(9)</span>Boudestijn</a></li>
-                                    <li><a href="#"> <span class="pull-right">(4)</span>Rösch creative culture</a></li>
+                                <ul class="nav nav-pills">
+                                    @foreach($brands as $b)
+                                        <li><a href="{{url('shop?filter_brand='.$b)}}"> <span class="pull-right">({{\App\Models\Product::countProductByBrand($b)}})</span>{{ucwords($b)}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div><!--/brands_products-->
+                        @endif
                         <div class="price-range"><!--price-range-->
                             <h2>Price Range</h2>
                             <div class="well text-center">

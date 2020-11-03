@@ -23,4 +23,8 @@ class SubCategory extends Model
     	}
     	return '';
     }
+    public static function countProductBySubCategory($id)
+    {
+        return \App\Models\Product::where('sub_category_id', $id)->count();
+    }
 }
