@@ -85,12 +85,15 @@
 		                        </div>
 		                    </li> -->
 		                    <li class="dropdown">
-		                        <i class="fa fa-bell dropdown-toggle" data-toggle="dropdown"><span>{{count(auth()->user()->notifications)}}</span></i>
+		                    	@if(Auth::user()->role != 'customer')
+		                    	@php($user = \App\Models\User::find(1))
+		                        <i class="fa fa-bell dropdown-toggle" data-toggle="dropdown"><span>{{count($user->unreadNotifications)}}</span></i>
 		                        <div class="dropdown-menu notify-box nt-enveloper-box">
-		                            <span class="notify-title">You have {{count(auth()->user()->notifications)}} new notifications <a href="#">view all</a></span>
+		                            <span class="notify-title">You have {{count($user->unreadNotifications)}} new notifications <a href="{{route('notification')}}">view all</a></span>
 		                            <div class="nofity-list">
-		                            	@foreach(auth()->user()->notifications as $notification)
-		                                <a href="{{route('order.show', $notification->data['order_id'])}}" class="notify-item">
+		                            	
+		                            	@foreach($user->unreadNotifications as $notification)
+		                                <a href="{{route('notification.view', $notification->id)}}" class="notify-item">
 		                                    <div class="notify-thumb">
 		                                        <img src="{{url($notification->data['customer_photo'])}}" alt="image">
 		                                    </div>
@@ -103,6 +106,28 @@
 		                                @endforeach		                            
 		                            </div>
 		                        </div>
+		                        @else
+		                        @php($user = Auth::user())
+		                        <i class="fa fa-bell dropdown-toggle" data-toggle="dropdown"><span>{{count($user->unreadNotifications)}}</span></i>
+		                        <div class="dropdown-menu notify-box nt-enveloper-box">
+		                            <span class="notify-title">You have {{count($user->unreadNotifications)}} new notifications <a href="{{route('mynotification')}}">view all</a></span>
+		                            <div class="nofity-list">
+		                            	
+		                            	@foreach($user->unreadNotifications as $notification)
+		                                <a href="{{route('mynotification.view', $notification->id)}}" class="notify-item">
+		                                    <div class="notify-thumb">
+		                                        <img src="{{url($notification->data['customer_photo'])}}" alt="image">
+		                                    </div>
+		                                    <div class="notify-text">
+		                                        <p>{{$notification->data['customer_name']}}</p>
+		                                        <span class="msg">{{$notification->data['message']}}</span>
+		                                        <span>{{$notification->data['order_date']}}</span>
+		                                    </div>
+		                                </a>
+		                                @endforeach		                            
+		                            </div>
+		                        </div>
+		                        @endif
 		                    </li>
 		                </ul>
 		            </div>

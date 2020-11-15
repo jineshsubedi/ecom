@@ -15,12 +15,14 @@
                                 @auth
                                 @if(auth()->user()->role=='customer')
                                 <li><a href="{{route('mycustomer.index')}}"><i class="fa fa-user"></i> Account</a></li>
+                                <li><a href="{{route('wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
+                                <li><a href="{{route('mycheckout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                <li><a href="{{route('mycart')}}"><i class="fa fa-shopping-cart"></i>Cart <sup id="updateCartCount">
+                                    {{\App\Models\Cart::countMyCartItem()}}
+                                </sup></a></li>
                                 @else 
                                 <li><a href="{{route('home')}}"><i class="fa fa-user"></i> Account</a></li>
                                 @endif
-                                <li><a href="{{route('wishlist')}}"><i class="fa fa-star"></i> Wishlist</a></li>
-                                <li><a href="{{route('mycheckout')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                                <li><a href="{{route('mycart')}}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                                 @endauth
                                 @guest
                                 <li><a href="{{route('login')}}"><i class="fa fa-lock"></i> Login</a></li>

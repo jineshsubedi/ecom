@@ -97,7 +97,7 @@
             @else
              <div class="col-md-12">
                     <div class="recommended_items"><!--recommended_items-->
-                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div id="recommended-item1-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach($channel->product as $k=>$product)
                                 <div class="item @if($k==0) active @endif"> 
@@ -120,10 +120,10 @@
                                 </div>
                                 @endforeach
                             </div>
-                             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                             <a class="left recommended-item-control" href="#recommended-item1-carousel" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
                               </a>
-                              <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                              <a class="right recommended-item-control" href="#recommended-item1-carousel" data-slide="next">
                                 <i class="fa fa-angle-right"></i>
                               </a>          
                         </div>
@@ -138,17 +138,13 @@
     <div class="clearfix"></div>
     <section>
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    @include('theme.common.left_sidebar', ['categories' => $categories])
-                </div>
-                
-                <div class="col-sm-9 padding-right">
+            <div class="">
+                <div class="col-md-12 padding-right">
                     @if(count($new_products) > 0)
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">New Items</h2>
                         @foreach($new_products as $product)
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                         <div class="productinfo text-center">
@@ -177,7 +173,7 @@
                     <div class="features_items"><!--features_items-->
                         <h2 class="title text-center">Features Items</h2>
                         @foreach($featured_products as $product)
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                         <div class="productinfo text-center">
@@ -239,12 +235,12 @@
                     <div class="recommended_items"><!--recommended_items-->
                         <h2 class="title text-center">recommended items</h2>
                         
-                        <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
+                        <div id="recommended-item-carousel123" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
                                 @foreach($recomended_products as $k=>$product)
                                 <div class="item @if($k==0) active @endif"> 
                                     @foreach($product as $p)  
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-3">
                                         <div class="product-image-wrapper">
                                             <div class="single-products">
                                                 <div class="productinfo text-center">
@@ -263,10 +259,10 @@
                                 </div>
                                 @endforeach
                             </div>
-                             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
+                             <a class="left recommended-item-control" href="#recommended-item-carousel123" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
                               </a>
-                              <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
+                              <a class="right recommended-item-control" href="#recommended-item-carousel123" data-slide="next">
                                 <i class="fa fa-angle-right"></i>
                               </a>          
                         </div>

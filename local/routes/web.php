@@ -85,6 +85,9 @@ Route::group(['middleware' =>['auth']], function(){
 
 		Route::get('/message','HomeController@message')->name('message.index')->middleware('admin');
 
+		Route::get('/notification/{id}','Admin\OrderController@notification_view')->name('notification.view')->middleware('admin');
+		Route::get('/notification','Admin\OrderController@notification')->name('notification')->middleware('admin');
+
 		Route::post('/getItemByProduct', 'Admin\ItemController@getItemByProduct')->name('admin.getItemByProduct');
 
 	});
@@ -104,6 +107,9 @@ Route::group(['middleware' =>['auth']], function(){
 
 	Route::get('/wishlist', 'MyCustomerController@wishlist')->name('wishlist')->middleware('customer');
 	Route::post('/wishlist_action', 'MyCustomerController@wishlist_action')->name('wishlist_action')->middleware('customer');
+
+	Route::get('/notification/{id}','MyCustomerController@notification_view')->name('mynotification.view')->middleware('customer');
+	Route::get('/notification','MyCustomerController@notification')->name('mynotification')->middleware('customer');
 });
 
 

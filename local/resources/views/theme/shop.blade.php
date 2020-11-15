@@ -16,7 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    @include('theme/common/left_sidebar', ['categories' => $categories])
+                    @include('theme/common/left_sidebar', ['categories' => $categories, 'data' => $data])
                 </div>
                 
                 <div class="col-md-9 padding-right">
@@ -31,7 +31,7 @@
                                             <div class="productinfo text-center">
                                                 <img src="{{asset('images/'.$product->product_attachment->file_name)}}" alt="" />
                                                 <h2>Rs. {{$product->price}}</h2>
-                                                <p>{{$product->title}}</p>
+                                                <p>{{str_limit($product->title, 50)}}</p>
                                                 <p>@include('/theme/common/rating_display', ['avg_rating' => $product->rate, 'product_id' => $product->id, 'type' => 'products'])</p>
                                                 <a href="{{url('shop/'.$product->slug)}}" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                             </div>

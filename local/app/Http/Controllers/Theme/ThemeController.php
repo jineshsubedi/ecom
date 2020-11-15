@@ -27,7 +27,7 @@ class ThemeController extends Controller
         $featured_products = Product::where('featured', 1)->with('product_attachment')->limit(6)->get();
         $new_products = Product::where('new', 1)->with('product_attachment')->limit(6)->get();
         $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
-        $recomended_products =array_chunk($recomended_products, 3);
+        $recomended_products =array_chunk($recomended_products, 4);
         
         $featured_categories = Category::where('featured', 1)->orderBy('title', 'asc')->get();
         $blogs = Blog::orderBy('id', 'desc')->paginate(10);
@@ -67,9 +67,16 @@ class ThemeController extends Controller
         $data['filter_category'] = '';
         $data['filter_sub_category'] = '';
         $data['filter_group'] = '';
+        $data['filter_brand'] = '';
+        $data['filter_search'] = '';
 
         $url = url('shop?');
 
+        if($request->filter_search){
+            $products = $products->where('title', 'LIKE', $request->filter_search.'%');
+            $data['filter_search'] = $request->filter_search;
+            $url .= '&filter_search='.$request->filter_search;
+        }
         if($request->filter_category){
             $category = Category::where('slug', $request->filter_category)->first();
             $products = $products->where('category_id', $category->id);
@@ -106,10 +113,16 @@ class ThemeController extends Controller
             $product['rate'] = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
             return $product;
         });
-    	return view('theme.shop', compact('categories', 'products'));
+    	return view('theme.shop', compact('categories', 'products', 'data'));
     }
     public function shop_detail($id)
     {
+        $data['filter_category'] = '';
+        $data['filter_sub_category'] = '';
+        $data['filter_group'] = '';
+        $data['filter_brand'] = '';
+        $data['filter_search'] = '';
+
         $recomended_products = Product::orderBy('visits','desc')->select('id','title','slug','price')->limit(9)->get()->toArray();
         $recomended_products =array_chunk($recomended_products, 3);
 
@@ -129,7 +142,7 @@ class ThemeController extends Controller
         $ratings = \App\Models\Rating::where('product_id', $product->id)->orderBy('id', 'desc')->get();
         $avg_rating = \App\Models\Rating::where('product_id', $product->id)->avg('rate');
         // return $product;
-    	return view('theme.shop_detail', compact('product', 'categories', 'recomended_products', 'avg_rating', 'ratings'));
+    	return view('theme.shop_detail', compact('product', 'categories', 'recomended_products', 'avg_rating', 'ratings', 'data'));
     }
     public function cart()
     {
@@ -213,7 +226,6 @@ class ThemeController extends Controller
             'cart.*' => 'required|integer',
             'quantity.*' => 'required'
         ]);
-        // return $request->all();
         $count = count($request->cart);
         for($i=0;$i<$count;$i++)
         {

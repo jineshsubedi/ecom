@@ -1,0 +1,2 @@
+<input type="text" class="span2" value="" data-slider-min="{{\App\Models\Product::getMinimumPrice()}}" data-slider-max="{{\App\Models\Product::getMaximumPrice()}}" data-slider-step="10" data-slider-value="[{{\App\Models\Product::getMinimumPrice()}},{{\App\Models\Product::getMaximumPrice()}}]" id="sl2"><br />
+             <b class="pull-left">Rs {{\App\Models\Product::getMinimumPrice()}}</b> <b class="pull-right">Rs {{\App\Models\Product::getMaximumPrice()}}</b>

@@ -102,4 +102,15 @@ class Product extends Model
     {
         return Product::where('brand', $brand)->count();
     }
+    public static function getInventory($id)
+    {
+        $data = Product::find($id);
+        if($data)
+        {
+            return $data->inventory;
+        }
+        else{
+            return 0.0;
+        }
+    }
 }

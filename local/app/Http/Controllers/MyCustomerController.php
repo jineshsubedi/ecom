@@ -69,6 +69,7 @@ class MyCustomerController extends Controller
         $mycart['cart']->map(function($cart){
             $cart['product_name'] = Product::getTitle($cart->product_id);
             $cart['product_slug'] = Product::getSlug($cart->product_id);
+            $cart['product_inventory'] = Product::getInventory($cart->product_id);
             $cart['product_image'] = ProductAttachment::getProductSingleImage($cart->product_id);
             return $cart;
         });
@@ -183,10 +184,18 @@ class MyCustomerController extends Controller
                     'total_cost' => $c->total_cost,
                 ];
                 OrderItem::create($orderItemData);
+                $pd = Product::find($c->product_id);
+                $inventory = $pd->inventory - $c->quantity;
+                if($inventory < 0){
+                    $inventory = 0;
+                }
+                $pd->update(['inventory' => $inventory]);
                 $c->delete();
             }
             $user = User::find(1);
-            $user->notify(new OrderNotification($order));
+            $user->notify(new OrderNotification($order, 'Admin'));
+            $customer = User::find(Auth::user()->id);
+            $customer->notify(new OrderNotification($order, 'Customer'));
             DB::commit();
         }catch (\Exception $e) {
             DB::rollback();
@@ -233,5 +242,19 @@ class MyCustomerController extends Controller
             ];
             return $response;
         }
+    }
+    public function notification()
+    {
+        $notifications = Auth::User()->notifications()->paginate(50);
+        return view('admin.myorder.notification', compact('notifications'));
+    }
+    public function notification_view($id)
+    {
+        $notification = Auth::User()->notifications()->where('id', $id)->first();
+        if ($notification) {
+            $notification->markAsRead();
+            return redirect()->route('view_myorder', $notification->data['order_id']);
+        }
+        return redirect()->back();
     }
 }

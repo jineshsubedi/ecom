@@ -14,4 +14,12 @@ class Cart extends Model
     {
     	return $this->hasOne('\App\Models\ProductAttachment', 'product_id');
     }
+    public static function countMyCartItem()
+    {
+    	$count = Cart::where('customer_id', auth()->user()->id)->count();
+    	if($count == 0){
+    		return '';
+    	}
+    	return $count;
+    }
 }

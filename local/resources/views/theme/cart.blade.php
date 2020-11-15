@@ -26,8 +26,8 @@
                     </thead>
                     <tbody>
                         @foreach($mycart['cart'] as $cart)
+                        <tr id="cartTable{{$cart->id}}">
                         <input type="hidden" name="cart[]" value={{$cart->id}}>
-                        <tr>
                             <td class="cart_product">
                                 <a href="{{url('cart/'.$cart->product_slug)}}" target="_blank"><img src="{{asset('images/'.$cart->product_image)}}" width="100px"></a>
                             </td>
@@ -35,12 +35,13 @@
                                 <a href="{{url('cart/'.$cart->product_slug)}}">{{$cart->product_name}}</a>
                             </td>
                             <td class="cart_price">
+
                                 <p>Rs. {{$cart->unit_cost}}</p>
                                 <input type="hidden" id="unitCost{{$cart->id}}" value="{{$cart->unit_cost}}">
                             </td>
                             <td class="cart_quantity quantity-box">
                                 <div class="cart_quantity_button">
-                                    <input type="number" size="4" value="{{$cart->quantity}}" min="1" step="1" class="c-input-text qty text" id="quantityControl{{$cart->id}}" name="quantity[]" onchange="updateTotalAmount({{$cart->id}})">
+                                    <input type="number" size="4" value="{{$cart->quantity}}" min="1" step="1" class="c-input-text qty text form-control" id="quantityControl{{$cart->id}}" max="{{$cart->product_inventory}}" name="quantity[]" onchange="updateTotalAmount({{$cart->id}})">
                                 </div>
                             </td>
                             <td class="cart_total">
@@ -54,8 +55,8 @@
                         </tr>
                         @endforeach
                         <tr>
-                            <td colspan="4">&nbsp;</td>
-                            <td colspan="2">
+                            <td colspan="2">&nbsp;</td>
+                            <td colspan="4">
                                 <table class="table table-condensed total-result">
                                     <tbody><tr>
                                         <td>Cart Sub Total</td>
@@ -91,6 +92,7 @@
         </div>
     </section> <!--/#cart_items-->
     <!-- End Cart -->
+    <script src="{{asset('theme/js/jquery.js')}}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script>
     var token = $('input[name=\'_token\']').val();
@@ -107,7 +109,6 @@
             dataType: 'JSON',
             success:function(data){
                 $('#cartTable'+id).remove();
-                getMyCart();
                 swal({
                   title: "Success!",
                   text: "Cart Item Removed Successfully",
@@ -134,5 +135,6 @@
         total = Math.round(total * 100) / 100
         $('#total_cost'+id).html('Rs. '+total)
     }
+
 </script>
 @endsection

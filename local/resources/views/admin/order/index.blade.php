@@ -29,15 +29,12 @@
                         <!-- <a href="{{route('order.create')}}" class="btn btn-xs btn-primary pull-right"><i class="ti-plus"></i> Add New</a> -->
                         <h4 class="header-title">Order's List</h4>
                         <div class="row">
-                            <div class="col-md-2">
-                                <input type="text" name="filter_customer" id="filter_customer" class="form-control" placeholder="search customer">
+                            <div class="col-md-3">
+                                <label>Search Customer:</label>
+                                <input type="text" name="filter_customer" id="filter_customer" class="form-control" placeholder="search customer" value="{{$data['filter_customer']}}">
                             </div>
-                            <div class="col-md-2">
-                                <select name="filter_product" id="filter_product" class="form-control">
-                                    <option value="">Select Product</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
+                            <!-- <div class="col-md-3">
+                                <label>Payment Mode:</label>
                                 <select name="filter_payment_mode" id="filter_payment_mode" class="form-control">
                                     <option value="">Select Mode</option>
                                     @foreach($data['payment_mode'] as $payment)
@@ -48,8 +45,9 @@
                                         @endif
                                     @endforeach
                                 </select>
-                            </div>
-                            <div class="col-md-2">
+                            </div> -->
+                            <div class="col-md-3">
+                                <label>Order Status:</label>
                                 <select name="filter_status" id="filter_status" class="form-control">
                                     <option value="">Select Status</option>
                                     @foreach($data['status'] as $status)
@@ -61,10 +59,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
+                                <label>Order Date:</label>
                                 <input type="date" name="filter_order_date" id="filter_order_date" class="form-control" placeholder="{{Date('Y-m-d')}}" value="{{$data['filter_order_date']}}">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
+                                <label>Shipping Date:</label>
                                 <input type="date" name="filter_delivery_date" id="filter_delivery_date" class="form-control" placeholder="{{Date('Y-m-d')}}" value="{{$data['filter_delivery_date']}}">
                             </div>
                         </div>
@@ -130,5 +130,44 @@
 		paging: false,
         searching: false,
 	});
+    $('#filter_customer').blur(function(){
+        filter();
+    });
+    $('#filter_status').change(function(){
+        filter();
+    });
+    $('#filter_order_date').change(function(){
+        filter();
+    });
+    $('#filter_delivery_date').change(function(){
+        filter();
+    });
+    function filter()
+    {
+        var customer = $('#filter_customer').val();
+        var status = $('#filter_status').val();
+        var order_date = $('#filter_order_date').val();
+        var delivery_date = $('#filter_delivery_date').val();
+
+        var url = '{{url("backend/order?")}}';
+        if(customer != '')
+        {
+            url += '&filter_customer='+customer;
+        }
+        if(status != '')
+        {
+            url += '&filter_status='+status;
+        }
+        if(order_date != '')
+        {
+            url += '&filter_order_date='+order_date;
+        }
+        if(delivery_date != '')
+        {
+            url += '&filter_delivery_date='+delivery_date;
+        }
+        
+        location = url;
+    }
 </script>
 @endsection
