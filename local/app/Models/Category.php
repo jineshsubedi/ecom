@@ -42,4 +42,9 @@ class Category extends Model
     {
         return \App\Models\SubCategory::where('category_id', $id)->get();
     }
+    public static function getTopFiveCategory()
+    {
+        $cats = Category::limit(5)->get();
+        return $cats;
+    }
 }
