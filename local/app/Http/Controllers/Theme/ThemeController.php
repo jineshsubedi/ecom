@@ -248,6 +248,12 @@ class ThemeController extends Controller
         $sub_category = \App\Models\SubCategory::where('category_id', $category->id)->orderBy('title', 'asc')->get();
         return $sub_category;
     }
+    public function getMainCategoryBySubCategoryId(Request $request)
+    {
+        $subcategory = \App\Models\SubCategory::findOrFail($request->category_id);
+        $main_category = \App\Models\MainSubCategory::where('sub_category_id', $subcategory->id)->orderBy('title', 'asc')->get();
+        return $main_category;
+    }
     public function saveRating(Request $request)
     {
         $this->validate($request, [

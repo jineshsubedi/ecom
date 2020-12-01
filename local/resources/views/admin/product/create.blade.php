@@ -97,6 +97,19 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-form-label required">Main Sub Category</label>
+                            <select name="main_category_id" class="form-control" id="main_category_id">
+                                <option value="0">Select Sub Category</option>
+                            </select>
+                            <div class="text-danger">
+                                @if ($errors->has('main_category_id'))
+                                    <span class="text-danger" role="alert">
+                                        <strong>{{ $errors->first('main_category_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-form-label required">Featured</label>
                             <select name="featured" class="form-control" id="featured">
                                 <option value="0">Not Featured</option>
@@ -280,6 +293,14 @@
     if(category != ''){
         ajaxSubCategoryCall(category)
     }
+    $('#sub_category_id').change(function(){
+        var category = $(this).val();
+        ajaxMainCategoryCall(category)
+    });
+    var sub_category = $('#sub_category_id').val();
+    if(sub_category != ''){
+        ajaxMainCategoryCall(sub_category)
+    }
     function ajaxSubCategoryCall(category)
     {
         $.ajax({
@@ -309,6 +330,32 @@
                   icon: "error",
                   button: "OK",
                 });
+            }
+        });
+    }
+    function ajaxMainCategoryCall(sub_category)
+    {
+        $.ajax({
+            url: "{{route('getMainCategoryBySubCategoryId')}}",
+            type: 'post',
+            data:{
+                _token : token,
+                category_id : sub_category
+            },
+            dataType: 'JSON',
+            success:function(data){
+                var old_main_category_id = '{{old("main_category_id")}}';
+                var optionHtml = '<option value="0">Select Main Sub Category</option>'
+                $.each(data, function(index, value){
+                    if(old_main_category_id == value.id){
+                        optionHtml += '<option value="'+value.id+'" selected>'+value.title+'</option>'
+                    }else{
+                        optionHtml += '<option value="'+value.id+'">'+value.title+'</option>'
+                    }
+                })
+                $('#main_category_id').html(optionHtml) 
+            },
+            error: function(error){
             }
         });
     }

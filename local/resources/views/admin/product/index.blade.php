@@ -30,6 +30,7 @@
                                         <th>Title</th>
                                         <th>Category</th>
                                         <th>Sub Category</th>
+                                        <th>Main Sub Category</th>
                                         <th>Price</th>
                                         <th>Featured</th>
                                         <th>New</th>
@@ -41,8 +42,9 @@
                                     @foreach($products as $product)
                                     <tr>
                                         <td>{{$product->title}}</td>                                    
-                                        <td>{{\App\Models\Category::getTitle($product->category_id)}}</td>                                    
-                                        <td>{{\App\Models\SubCategory::getTitle($product->sub_category_id)}}</td>                                    
+                                        <td>{{\App\Models\Category::getTitle($product->category_id)}}</td>                       
+                                        <td>{{\App\Models\SubCategory::getTitle($product->sub_category_id)}}</td>                     
+                                        <td>{{\App\Models\MainSubCategory::getTitle($product->main_category_id)}}</td>                     
                                         <td>{{$product->price}}</td>                                   
                                         <!-- <td>{!! str_limit($product->description, 100) !!}</td>   -->
                                         <td>{{$product->featured == 0 ? 'No' : 'Yes'}}</td>                                 

@@ -36,6 +36,7 @@ Route::group(['middleware' => ['web']], function(){
 
 	Route::get('get_cart_product', 'Theme\ThemeController@getMyCart')->name('getMyCart');
 	Route::post('getSubCategoryByCategoryId', 'Theme\ThemeController@getSubCategoryByCategoryId')->name('getSubCategoryByCategoryId');
+	Route::post('getMainCategoryBySubCategoryId', 'Theme\ThemeController@getMainCategoryBySubCategoryId')->name('getMainCategoryBySubCategoryId');
 });
 
 Auth::routes();

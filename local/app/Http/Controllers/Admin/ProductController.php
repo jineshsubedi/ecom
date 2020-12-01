@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\MainSubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\ProductAttachment;
@@ -49,6 +50,7 @@ class ProductController extends Controller
             'slug' => 'required|unique:products,slug',
             'category_id' => 'required',
             'sub_category_id' => 'sometimes',
+            'main_category_id' => 'sometimes',
             'description' => 'required',
             'featured' => 'required',
             'price' => 'required',
@@ -66,6 +68,7 @@ class ProductController extends Controller
             'featured' => $request->featured,
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
+            'main_category_id' => $request->main_category_id,
             'description' => $request->description,
             'price' => $request->price,
             'new' => $request->new,
@@ -119,8 +122,9 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $categories = Category::orderBy('title','asc')->get();
         $sub_categories = SubCategory::where('category_id', $product->category_id)->orderBy('title','asc')->get();
+        $main_categories = MainSubCategory::where('sub_category_id', $product->sub_category_id)->orderBy('title','asc')->get();
         $attachments = ProductAttachment::where('product_id', $product->id)->get();
-        return view('admin.product.edit', compact('product', 'categories', 'sub_categories', 'attachments'));
+        return view('admin.product.edit', compact('product', 'categories', 'sub_categories', 'main_categories', 'attachments'));
     }
 
     /**
@@ -137,6 +141,7 @@ class ProductController extends Controller
             'slug' => 'required|unique:products,slug,'.$id,
             'category_id' => 'required',
             'sub_category_id' => 'sometimes',
+            'main_category_id' => 'sometimes',
             'description' => 'required',
             'featured' => 'required',
             'price' => 'required',
@@ -151,6 +156,7 @@ class ProductController extends Controller
             'slug' => $request->slug,
             'category_id' => $request->category_id,
             'sub_category_id' => $request->sub_category_id,
+            'main_category_id' => $request->main_category_id,
             'description' => $request->description,
             'featured' => $request->featured,
             'price' => $request->price,
