@@ -24,6 +24,7 @@ class ChannelController extends Controller
     }
     public function store(Request $request)
     {
+
     	$this->validate($request, [
     		'title' => 'required',
     		'status' => 'required',
@@ -32,21 +33,27 @@ class ChannelController extends Controller
     		'product.*' => 'required',
     		'image' => 'sometimes',
     	]);
+        
     	$file_name = '';
     	if($request->image)
-            {
-                $file = $request->image;
-                $ext = strtolower($file->getClientOriginalExtension()); 
-                $file_name = 'channel/'.Str::random(10).strtolower($file->GetClientOriginalName());
-                $file->move(DIR_IMAGE.'/channel/',$file_name);
-            }
+        {
+            $file = $request->image;
+            $ext = strtolower($file->getClientOriginalExtension()); 
+            $file_name = 'channel/'.Str::random(10).strtolower($file->GetClientOriginalName());
+            $file->move(DIR_IMAGE.'/channel/',$file_name);
+        }
+        $product = '';
+        if(isset($request->product))
+        {
+            $product = json_encode($request->product);
+        }
     	$data = [
     		'title' => $request->title,
     		'status' => $request->status,
     		'start_date' => $request->start_date,
     		'end_date' => $request->end_date,
     		'image' => $file_name,
-    		'product' => json_encode($request->product)
+    		'product' => $product
     	];
     	$channel = Channel::create($data);
     	alert()->success('Success', 'Channel Created!');
@@ -72,24 +79,29 @@ class ChannelController extends Controller
     	$channel = Channel::findOrFail($id);
     	$file_name = $channel->image;
     	if($request->image)
-            {
-            	if(isset($channel->image)){
-	                if(File::exists(DIR_IMAGE.$channel->image)) {
-	                    File::delete(DIR_IMAGE.$channel->image);
-	                }
-	            }
-                $file = $request->image;
-                $ext = strtolower($file->getClientOriginalExtension()); 
-                $file_name = 'channel/'.Str::random(10).strtolower($file->GetClientOriginalName());
-                $file->move(DIR_IMAGE.'/channel/',$file_name);
+        {
+        	if(isset($channel->image)){
+                if(File::exists(DIR_IMAGE.$channel->image)) {
+                    File::delete(DIR_IMAGE.$channel->image);
+                }
             }
+            $file = $request->image;
+            $ext = strtolower($file->getClientOriginalExtension()); 
+            $file_name = 'channel/'.Str::random(10).strtolower($file->GetClientOriginalName());
+            $file->move(DIR_IMAGE.'/channel/',$file_name);
+        }
+        $product = NULL;
+        if(isset($request->product))
+        {
+            $product = json_encode($request->product);
+        }
     	$data = [
     		'title' => $request->title,
     		'status' => $request->status,
     		'start_date' => $request->start_date,
     		'end_date' => $request->end_date,
     		'image' => $file_name,
-    		'product' => json_encode($request->product)
+    		'product' => $product
     	];
     	$channel->update($data);
     	alert()->success('Success', 'Channel Updated!');

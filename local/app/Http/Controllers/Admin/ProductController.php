@@ -55,7 +55,10 @@ class ProductController extends Controller
             'new' => 'required',
             'brand' => 'sometimes',
             'inventory' => 'required',
-            'image.*' => 'required|mimes:jpg,png,jpeg,gif|max:2048',
+            'image' => 'required',
+            'image.*' => 'mimes:jpg,png,jpeg,gif|max:2048'
+        ],[
+            'image.required' => 'Please add product image',
         ]);
         $data = [
             'title' => $request->title,
