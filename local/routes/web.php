@@ -75,6 +75,7 @@ Route::group(['middleware' =>['auth']], function(){
 
 		Route::resource('/category', 'Admin\CategoryController')->middleware('admin');
 		Route::resource('/sub_category', 'Admin\SubCategoryController')->middleware('admin');
+		Route::resource('/main_category', 'Admin\MainSubCategoryController')->middleware('admin');
 
 		Route::resource('/order', 'Admin\OrderController')->middleware('admin');
 		

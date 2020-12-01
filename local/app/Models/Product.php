@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'title', 'slug', 'category_id', 'sub_category_id', 'price', 'description', 'brand', 'visits', 'featured', 'new', 'inventory'
+        'title', 'slug', 'category_id', 'sub_category_id', 'main_category_id', 'price', 'description', 'brand', 'visits', 'featured', 'new', 'inventory'
     ];
 
     public static function getItemByProductId($id)
@@ -67,6 +67,10 @@ class Product extends Model
     public function sub_category()
     {
         return $this->belongsTo('\App\Models\SubCategory');
+    }
+    public function main_category()
+    {
+        return $this->belongsTo('\App\Models\MainSubCategory');
     }
     public function product_attachment()
     {

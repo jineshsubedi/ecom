@@ -52,7 +52,7 @@
     <br><br>
     @foreach($channels as $channel)
     <section id="festival_product">
-        <div class="container" style="border: 1px solid #dcdcf7">
+        <div class="container">
             <h2 class="title text-center mt10">{{$channel->title}}</h2>
             @if($channel->image != NULL)
             <div class="col-md-4">

@@ -50,6 +50,7 @@
                                 @if(Request::segment(2)=='slider' ) class="active" @endif
                                 @if(Request::segment(2)=='category' ) class="active" @endif
                                 @if(Request::segment(2)=='sub_category' ) class="active" @endif
+                                @if(Request::segment(2)=='main_category' ) class="active" @endif
                                 @if(Request::segment(2)=='product' ) class="active" @endif
                                 @if(Request::segment(2)=='order' ) class="active" @endif
                                 @if(Request::segment(2)=='group' ) class="active" @endif
@@ -65,6 +66,9 @@
                                     </li>
                                     <li @if(Request::segment(2)=='sub_category' ) class="active" @endif>
                                         <a href="{{route('sub_category.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Sub Category</span></a>
+                                    </li>
+                                    <li @if(Request::segment(2)=='main_category' ) class="active" @endif>
+                                        <a href="{{route('main_category.index')}}" aria-expanded="false"><i class="ti-bag"></i><span>Main Sub Category</span></a>
                                     </li>
                                     <li @if(Request::segment(2)=='group' ) class="active" @endif>
                                         <a href="{{route('group.index')}}" aria-expanded="false"><i class="ti-link"></i><span>Group</span></a>
