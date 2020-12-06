@@ -15,10 +15,8 @@ class CreateMainSubCategoriesTable extends Migration
     {
         Schema::create('main_sub_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
-            $table->unsignedInteger('sub_category_id');
-            $table->foreign('sub_category_id')->references('id')->on('categories');
+            $table->integer('category_id')->default(0);
+            $table->integer('sub_category_id')->default(0);
             $table->string('title');
             $table->string('slug');
             $table->timestamps();

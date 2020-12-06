@@ -82,6 +82,7 @@ class MainSubCategoryController extends Controller
 	            'category_id' => $request->category_id,
 	            'sub_category_id' => $request->sub_category_id,
 	        ];
+	       // return $data;
 	        MainSubCategory::create($data);
         }
         alert()->success('Success', 'Sub Category added successfully!');
