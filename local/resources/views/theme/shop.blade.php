@@ -1,18 +1,10 @@
 @extends('layouts.theme.app')
 @section('content')
 
-<section id="advertisement">
-    <div class="container">
-        <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="bjhghf" />
-    </div>
-</section>
 @include('theme.common.featured_category_box')
 <br><br><br>
 <!-- Start Shop Page  -->
 <section>
-        <div class="container">
-        <img src="{{asset('theme/images/shop/advertisement.jpg')}}" alt="bjhghf" />
-    </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
